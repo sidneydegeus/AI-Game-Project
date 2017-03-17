@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Unit;
 
 public class Unit : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class Unit : MonoBehaviour {
     int targetIndex;
 
     void Start() {
+        Think think = new Think();
+        //think.Process();
         PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
     }
 

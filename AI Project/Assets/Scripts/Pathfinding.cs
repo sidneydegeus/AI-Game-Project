@@ -76,7 +76,6 @@ public class Pathfinding : MonoBehaviour {
         Vector3[] waypoints = SimplifyPath(path);
         Array.Reverse(waypoints);
         return waypoints;
-        //grid.path = path;
     }
 
     Vector3[] SimplifyPath(List<Node> path) {
