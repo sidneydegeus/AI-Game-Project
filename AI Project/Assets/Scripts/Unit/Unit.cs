@@ -1,19 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Unit;
+using System.Collections.Generic;
 
 public class Unit : MonoBehaviour {
 
 
     public Transform target;
-    float speed = 1;
+    public float Speed { get { return 1; } }
     Vector3[] path;
     int targetIndex;
 
+    Think think;
+
+
     void Start() {
-        Think think = new Think();
-        //think.Process();
-        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+        think = new Think(this);//gameObject.AddComponent<Think>();
+        //StartCoroutine(Thinking());
+        //think = new Think(this);
+
+        //PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+    }
+
+    IEnumerator Thinking() {
+        // You will never stop thinking, that's why while true
+        while (true) {
+            think.Process();
+            //yield return new WaitForSeconds(0.1f);
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    void Update() {
+        think.Process();
     }
 
     public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
@@ -36,7 +55,7 @@ public class Unit : MonoBehaviour {
                 currentWaypoint = path[targetIndex];
             }
 
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, Speed * Time.deltaTime);
             yield return null;
 
         }
