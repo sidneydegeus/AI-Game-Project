@@ -8,10 +8,11 @@ using UnityEngine;
 
 class Think : ActionGroup {
 
-    public Think(MonoBehaviour _unit) : base(_unit) {
+    public Think(MovingEntity _unit) : base(_unit) {
         Activate();
         Description = "Thinking";
-        GameObject temp = GameObject.Find("GroceryStore");
+        AddAction(new GoToGroceryStore(_unit));
+        GameObject temp = GameObject.Find("Target");
         Transform target = temp.GetComponent<Transform>();
         AddAction(new FollowPath(_unit, target));
     }
@@ -34,7 +35,7 @@ class Think : ActionGroup {
             //Debug.Log("executing action");
             action.Process();
             if (action.Process() == ActionEnum.STATUS_ACTIVE) { // has to be is not complete
-                AddAction(action); // readd to stack if it's not done yet
+                AddAction(action); // re-add to stack if it's not done yet
             }
         }
         else {

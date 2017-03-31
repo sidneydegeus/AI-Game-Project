@@ -8,7 +8,7 @@ abstract class ActionGroup : Action {
 
     Stack<Action> actionList;
 
-    public ActionGroup(MonoBehaviour _unit) : base(_unit) {
+    public ActionGroup(MovingEntity _unit) : base(_unit) {
         actionList = new Stack<Action>();
     }
 
