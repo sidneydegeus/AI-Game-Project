@@ -31,6 +31,7 @@ public class MovingEntity : MonoBehaviour {
                 targetIndex++;
                 if (targetIndex >= path.Length) {
                     //completed
+                    Destroy(this.gameObject);
                     return true;
                 }
                 currentWaypoint = path[targetIndex];
