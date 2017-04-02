@@ -7,6 +7,23 @@ using System;
 public class Human : MovingEntity {
 
     Think think;
+    private IHumanBehaviour humanBehaviour;
+    public IHumanBehaviour HumanBehaviour {
+        get {
+            return humanBehaviour;
+        }
+        set {
+            if (humanBehaviour != value && humanBehaviour != null) {
+                if (humanBehaviour.GetType() == typeof(GoodHumanBehaviour)) {
+                    WorldManager.GoodHumanCount--;
+                }
+                if (humanBehaviour.GetType() == typeof(BadHumanBehaviour)) {
+                    WorldManager.BadHumanCount--;
+                }
+            }
+            humanBehaviour = value;
+        }
+   }
 
     int hunger;
     int money;
@@ -16,8 +33,7 @@ public class Human : MovingEntity {
     // behaviour variable to make use of a strategy pattern
 
     void Start() {
-        // upon creation, humancount += 1 (maybe put this in awake()?)
-        WorldManager.HumanCount++;
+        HumanBehaviour = new GoodHumanBehaviour();
         think = new Think(this);
         SetHumanValues();
         //StartCoroutine(Tick());
@@ -30,7 +46,16 @@ public class Human : MovingEntity {
     void OnDestroy() {
         think.Terminate();
         StopCoroutine(Tick());
-        WorldManager.HumanCount--; 
+        if (humanBehaviour.GetType() == typeof(GoodHumanBehaviour)) {
+            WorldManager.GoodHumanCount--;
+        }
+        if (humanBehaviour.GetType() == typeof(BadHumanBehaviour)) {
+            WorldManager.BadHumanCount--;
+        }
+        if (humanBehaviour.GetType() == typeof(PoliceHumanBehaviour)) {
+            WorldManager.PoliceHumanCount--;
+        }
+        //WorldManager.HumanCount--; 
     }
 
     void SetHumanValues() {
