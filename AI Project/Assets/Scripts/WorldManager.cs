@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class WorldManager : MonoBehaviour {
 
-    public GameObject spawner;
+    public GameObject[] spawners = new GameObject[4];
     public Human human;
 
     public Text HumanCountText;
@@ -38,14 +38,18 @@ public class WorldManager : MonoBehaviour {
     }
 
     IEnumerator SpawnHuman() {
-        while (true) {
-            Human spawnedHuman = Instantiate(human, spawner.transform.position, Quaternion.identity) as Human;
-            yield return new WaitForSeconds(5.0f);
-        }
+        AddHuman();
+        yield return null;
+        //while (true) {
+        //    AddHuman();
+        //    yield return new WaitForSeconds(5.0f);
+        //}
     }
 
     void AddHuman() {
-        Human spawnedHuman = Instantiate(human, spawner.transform.position, Quaternion.identity) as Human;
+        System.Random r = new System.Random();
+        int index = r.Next(0, 4);
+        Human spawnedHuman = Instantiate(human, spawners[index].transform.position, Quaternion.identity) as Human;
     }
 
     void ResetField() {

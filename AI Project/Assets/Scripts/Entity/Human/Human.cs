@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Assets.Scripts.Unit;
 using System.Collections.Generic;
 using System;
 
@@ -28,7 +27,7 @@ public class Human : MovingEntity {
     int hunger;
     int money;
     int health;
-    // some specific unit values?
+    // some specific entity values?
     
     // behaviour variable to make use of a strategy pattern
 
@@ -36,6 +35,7 @@ public class Human : MovingEntity {
         HumanBehaviour = new GoodHumanBehaviour();
         think = new Think(this);
         SetHumanValues();
+        StartCoroutine(ScanRadius());
         //StartCoroutine(Tick());
     }
 

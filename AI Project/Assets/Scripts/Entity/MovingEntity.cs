@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingEntity : MonoBehaviour {
+public class MovingEntity : LivingEntity {
 
     Vector3[] path;
     Vector3 currentWaypoint;
@@ -25,21 +25,21 @@ public class MovingEntity : MonoBehaviour {
         }
     }
 
-    public bool ExecuteFollowPath() {
+    public ActionEnum ExecuteFollowPath() {
         if (path != null) {
             if (transform.position == currentWaypoint) {
                 targetIndex++;
                 if (targetIndex >= path.Length) {
                     //completed
-                    Destroy(this.gameObject);
-                    return true;
+                    //Destroy(this.gameObject);
+                    return ActionEnum.STATUS_COMPLETED;
                 }
                 currentWaypoint = path[targetIndex];
             }
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, Speed * Time.deltaTime);
         }
         // not yet completed
-        return false;
+        return ActionEnum.STATUS_ACTIVE;
     }
 
     public void OnDrawGizmos() {

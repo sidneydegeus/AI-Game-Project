@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Unit;
+﻿
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ class FollowPath : Action {
 
     Transform target;
 
-    public FollowPath(MovingEntity _unit, Transform _target) : base(_unit) {
+    public FollowPath(MovingEntity _entity, Transform _target) : base(_entity) {
         Description = "Following path to target";
         target = _target;
         Weight = 10;
@@ -18,18 +18,16 @@ class FollowPath : Action {
     public override void Activate() {
         Status = ActionEnum.STATUS_ACTIVE;
         //Debug.Log("im getting activated");
-        unit.RequestPathToTarget(target);
+        entity.RequestPathToTarget(target);
     }
 
     public override ActionEnum Process() {
-        if (unit.ExecuteFollowPath()) {
-            Status = ActionEnum.STATUS_COMPLETED;
-        }
+        Status = entity.ExecuteFollowPath();
         return Status;
     }
 
     public override void Terminate() {
-        throw new NotImplementedException();
+        Status = ActionEnum.STATUS_FAILED;
     }
 }
 
