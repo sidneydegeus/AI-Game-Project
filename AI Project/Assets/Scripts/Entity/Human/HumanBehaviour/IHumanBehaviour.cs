@@ -3,5 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IHumanBehaviour {
-    void PerformBehaviour();
+    Action Eat();
+    Action Attack();
+    Action Rest();
 }

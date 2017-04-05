@@ -24,12 +24,9 @@ public class Human : MovingEntity {
         }
    }
 
-    int hunger;
-    int money;
-    int health;
-    // some specific entity values?
-    
-    // behaviour variable to make use of a strategy pattern
+    public int Hunger;
+    public int Money;
+    public int Health;
 
     void Start() {
         grid = GetComponent<Grid>();
@@ -37,11 +34,13 @@ public class Human : MovingEntity {
         think = new Think(this);
         SetHumanValues();
         StartCoroutine(ScanRadius());
-        //StartCoroutine(Tick());
+        StartCoroutine(Tick());
     }
 
     void Update() {
         think.Process();
+
+        // maybe some physics calculation here to reduce health upon hit?
     }
 
     void OnDestroy() {
@@ -53,28 +52,24 @@ public class Human : MovingEntity {
         if (humanBehaviour.GetType() == typeof(BadHumanBehaviour)) {
             WorldManager.BadHumanCount--;
         }
-        if (humanBehaviour.GetType() == typeof(PoliceHumanBehaviour)) {
-            WorldManager.PoliceHumanCount--;
-        }
-        //WorldManager.HumanCount--; 
     }
 
     void SetHumanValues() {
         System.Random r = new System.Random();
-        money = r.Next(500, 6000);
-        hunger = 0;
-        health = 100;
+        Money = r.Next(500, 6000);
+        Hunger = 0;
+        Health = 100;
     }
 
     IEnumerator Tick() {
         while (true) {
-            money += 5;
-            hunger += 1;
-            if (hunger >= 100) {
-                health -= 1;
+            Money += 5;
+            Hunger += 1;
+            if (Hunger >= 100) {
+                Health -= 1;
             }
-            else if (hunger <= 50) {
-                health += 1;
+            else if (Hunger <= 50) {
+                Health += 1;
             }
 
             yield return new WaitForSeconds(3.0f);

@@ -9,7 +9,18 @@ public class GoodHumanBehaviour : IHumanBehaviour {
         WorldManager.GoodHumanCount++;
     }
 
-    public void PerformBehaviour() {
+    public Action Attack() {
+        // a good human doesn't attack, but defends instead
+        throw new NotImplementedException();
+    }
+
+    public Action Eat() {
+        // a good human goes to the grocery store to buy food and then eat it
+        throw new NotImplementedException();
+    }
+
+    public Action Rest() {
+        // idk just standard rest?
         throw new NotImplementedException();
     }
 }

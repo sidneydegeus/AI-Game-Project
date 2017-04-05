@@ -7,9 +7,12 @@ using UnityEngine;
 
 class Think : ActionGroup {
 
+    Human human;
+
     public Think(MovingEntity _entity) : base(_entity) {
         Activate();
         Description = "Thinking";
+        human = (Human)entity;
         //PathToGroceryStore();
         //GameObject temp = GameObject.Find("Target");
         //Transform target = temp.GetComponent<Transform>();
@@ -18,10 +21,13 @@ class Think : ActionGroup {
 
     override
     protected void AdditionalProcess() {
+        if (human.Hunger > 50) {
+            human.HumanBehaviour.Eat();
+        }
+
         // whenever there is nothing to do, go wander
         if (ActionListSize() == 0) {
             AddAction(new Wander(entity));
-
         }
     }
 
