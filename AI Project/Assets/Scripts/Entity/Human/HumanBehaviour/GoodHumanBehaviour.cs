@@ -19,6 +19,10 @@ public class GoodHumanBehaviour : IHumanBehaviour {
         throw new NotImplementedException();
     }
 
+    public Action Purchase() {
+        throw new NotImplementedException();
+    }
+
     public Action Rest() {
         // idk just standard rest?
         throw new NotImplementedException();

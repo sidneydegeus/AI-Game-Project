@@ -49,6 +49,7 @@ public class WorldManager : MonoBehaviour {
     void AddHuman() {
         System.Random r = new System.Random();
         int index = r.Next(0, 4);
+        //Human spawnedHuman = Instantiate(human, spawners[index].transform.position, Quaternion.identity) as Human;
         Human spawnedHuman = Instantiate(human, spawners[index].transform.position, Quaternion.identity) as Human;
     }
 

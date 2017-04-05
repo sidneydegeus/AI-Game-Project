@@ -7,6 +7,7 @@ using UnityEngine;
 class GoToGroceryStore : ActionGroup {
     public GoToGroceryStore(MovingEntity _entity) : base(_entity) {
         Description = "Go To Grocerystore";
+        // buy food
         FindPathToGroceryStore();
     }
 

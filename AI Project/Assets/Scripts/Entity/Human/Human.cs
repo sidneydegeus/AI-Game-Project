@@ -27,6 +27,7 @@ public class Human : MovingEntity {
     public int Hunger;
     public int Money;
     public int Health;
+    //public List<Inventory> inventory;
 
     void Start() {
         grid = GetComponent<Grid>();

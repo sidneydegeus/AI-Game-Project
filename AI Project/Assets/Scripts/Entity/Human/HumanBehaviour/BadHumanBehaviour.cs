@@ -19,6 +19,10 @@ public class BadHumanBehaviour : IHumanBehaviour {
         throw new NotImplementedException();
     }
 
+    public Action Purchase() {
+        throw new NotImplementedException();
+    }
+
     public Action Rest() {
         throw new NotImplementedException();
     }
