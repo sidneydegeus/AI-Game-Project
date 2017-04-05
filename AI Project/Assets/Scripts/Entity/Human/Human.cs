@@ -34,7 +34,7 @@ public class Human : MovingEntity {
         HumanBehaviour = new GoodHumanBehaviour();
         think = new Think(this);
         SetHumanValues();
-        StartCoroutine(ScanRadius());
+        StartCoroutine(FindTargetsWithDelay(.2f));
         StartCoroutine(Tick());
     }
 
