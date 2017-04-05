@@ -24,7 +24,10 @@ abstract class ActionGroup : Action {
 
     override
     public ActionEnum Process() {
-
+        if (Status == ActionEnum.STATUS_FAILED) {
+            Terminate();
+            return Status;
+        }
         // making use of template pattern here
         // AdditionalProcess will have more specific actions and such
         // that are defined in classes such as Think
@@ -35,7 +38,7 @@ abstract class ActionGroup : Action {
             if (action.Status == ActionEnum.STATUS_INACTIVE) {
                 action.Activate();
             }
-            action.Process();
+            //action.Process();
             if (action.Process() == ActionEnum.STATUS_ACTIVE) { // has to be is not complete
                 AddAction(action); // re-add to stack if it's not done yet
             }

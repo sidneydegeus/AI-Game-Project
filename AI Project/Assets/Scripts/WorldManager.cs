@@ -27,7 +27,7 @@ public class WorldManager : MonoBehaviour {
 	void Start () {
         AddHumanButton.onClick.AddListener(AddHuman);
         ResetFieldButton.onClick.AddListener(ResetField);
-        StartCoroutine(SpawnHuman());
+        //StartCoroutine(SpawnHuman());
     }
 
     void Update() {
@@ -38,12 +38,12 @@ public class WorldManager : MonoBehaviour {
     }
 
     IEnumerator SpawnHuman() {
-        AddHuman();
-        yield return null;
-        //while (true) {
-        //    AddHuman();
-        //    yield return new WaitForSeconds(5.0f);
-        //}
+        //AddHuman();
+        //yield return null;
+        while (true) {
+            AddHuman();
+            yield return new WaitForSeconds(5.0f);
+        }
     }
 
     void AddHuman() {

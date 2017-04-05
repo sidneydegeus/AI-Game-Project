@@ -18,6 +18,6 @@ class GoToGroceryStore : ActionGroup {
     void FindPathToGroceryStore() {
         GameObject temp = GameObject.Find("GroceryStore");
         Transform target = temp.GetComponent<Transform>();
-        AddAction(new FollowPath(entity, target));
+        AddAction(new FollowPath(entity, target.position));
     }
 }

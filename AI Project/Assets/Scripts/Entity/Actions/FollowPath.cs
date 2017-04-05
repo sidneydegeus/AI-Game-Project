@@ -7,9 +7,9 @@ using UnityEngine;
 
 class FollowPath : Action {
 
-    Transform target;
+    Vector3 target;
 
-    public FollowPath(MovingEntity _entity, Transform _target) : base(_entity) {
+    public FollowPath(MovingEntity _entity, Vector3 _target) : base(_entity) {
         Description = "Following path to target";
         target = _target;
         Weight = 10;

@@ -32,6 +32,7 @@ public class Human : MovingEntity {
     // behaviour variable to make use of a strategy pattern
 
     void Start() {
+        grid = GetComponent<Grid>();
         HumanBehaviour = new GoodHumanBehaviour();
         think = new Think(this);
         SetHumanValues();
