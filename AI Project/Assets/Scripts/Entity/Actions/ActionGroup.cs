@@ -33,6 +33,9 @@ abstract class ActionGroup : Action {
         // that are defined in classes such as Think
         AdditionalProcess();
 
+        // TODO:
+        // Use peek instead of pop? or use something else than a stack? might gain performance
+
         if (ActionListSize() > 0) {
             Action action = PerformAction();
             if (action.Status == ActionEnum.STATUS_INACTIVE) {
