@@ -9,21 +9,21 @@ public class BadHumanBehaviour : IHumanBehaviour {
         WorldManager.BadHumanCount++;
     }
 
-    public Action Attack() {
+    public void Attack() {
         // a bad human attacks people for money?
         throw new NotImplementedException();
     }
 
-    public Action Eat() {
+    public void Eat() {
         // a bad human goes to grocery store to steal food?
         throw new NotImplementedException();
     }
 
-    public Action Purchase() {
+    public void Purchase() {
         throw new NotImplementedException();
     }
 
-    public Action Rest() {
+    public void Rest() {
         throw new NotImplementedException();
     }
 }

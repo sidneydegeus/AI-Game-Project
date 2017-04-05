@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IHumanBehaviour {
-    Action Eat();
-    Action Purchase();
-    Action Attack();
-    Action Rest();
+    void Eat();
+    void Purchase();
+    void Attack();
+    void Rest();
 }

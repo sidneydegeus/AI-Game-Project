@@ -28,6 +28,9 @@ abstract class ActionGroup : Action {
             Terminate();
             return Status;
         }
+        // check if action is completed or failed and remove it
+
+
         // making use of template pattern here
         // AdditionalProcess will have more specific actions and such
         // that are defined in classes such as Think
@@ -41,12 +44,11 @@ abstract class ActionGroup : Action {
             if (action.Status == ActionEnum.STATUS_INACTIVE) {
                 action.Activate();
             }
-            //action.Process();
-            if (action.Process() == ActionEnum.STATUS_ACTIVE) { // has to be is not complete
-                AddAction(action); // re-add to stack if it's not done yet
+            action.Process();
+            if (action.Status == ActionEnum.STATUS_COMPLETED || action.Status == ActionEnum.STATUS_FAILED) {
+                RemoveAction();
             }
-        }
-        else {
+        } else {
             this.Status = ActionEnum.STATUS_COMPLETED;
         }
         return Status;
@@ -60,8 +62,12 @@ abstract class ActionGroup : Action {
     }
 
     // removes an action from the list and returns the action
-    protected Action PerformAction() {
+    protected Action RemoveAction() {
         return actionList.Pop();
+    }
+
+    protected Action PerformAction() {
+        return actionList.Peek();
     }
 
     // clears the entire action list

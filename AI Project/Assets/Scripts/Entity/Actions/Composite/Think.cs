@@ -13,7 +13,7 @@ class Think : ActionGroup {
         Activate();
         Description = "Thinking";
         human = (Human)entity;
-        //PathToGroceryStore();
+        GoToGroceryStore();
         //GameObject temp = GameObject.Find("Target");
         //Transform target = temp.GetComponent<Transform>();
         //AddAction(new FollowPath(entity, target.position));
@@ -21,8 +21,8 @@ class Think : ActionGroup {
 
     override
     protected void AdditionalProcess() {
-        if (human.Hunger > 50) {
-            human.HumanBehaviour.Eat();
+        if (human.Hunger > 5) {
+            GoToGroceryStore();
         }
 
         // whenever there is nothing to do, go wander
@@ -31,7 +31,7 @@ class Think : ActionGroup {
         }
     }
 
-    void PathToGroceryStore() {
+    void GoToGroceryStore() {
         AddAction(new GoToGroceryStore(entity));
     }
 }

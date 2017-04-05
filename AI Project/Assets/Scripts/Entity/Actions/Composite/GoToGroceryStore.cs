@@ -8,6 +8,9 @@ class GoToGroceryStore : ActionGroup {
     public GoToGroceryStore(MovingEntity _entity) : base(_entity) {
         Description = "Go To Grocerystore";
         // buy food
+        AddAction(new ExitStore(entity));
+        AddAction(new PurchaseItem(entity));
+        AddAction(new EnterStore(entity));
         FindPathToGroceryStore();
     }
 

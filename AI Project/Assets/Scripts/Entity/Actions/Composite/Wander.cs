@@ -13,7 +13,7 @@ class Wander : ActionGroup {
     protected override void AdditionalProcess() {
     
         if (entity.WanderStatus() == ActionEnum.STATUS_FAILED) {
-            Debug.Log("im wandering and failed");
+            //Debug.Log("im wandering and failed");
             Status = ActionEnum.STATUS_FAILED;
         }
         //Debug.Log("processing: " + Description);

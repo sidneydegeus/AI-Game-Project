@@ -2,24 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
-namespace Assets.Scripts.Entity.Actions.Atomic {
     class ExitStore : Action {
 
+        Renderer render;
+        Human human;
+    float fadeOut;
+
         public ExitStore(MovingEntity _entity) : base(_entity) {
-            Description = "Exiting store";
-        }
+            Description = "Entering store";
+            human = (Human)entity;
+            render = human.GetComponent<Renderer>();
+        fadeOut = 0.00f;
+    }
 
         public override void Activate() {
-            throw new NotImplementedException();
+            Status = ActionEnum.STATUS_ACTIVE;
         }
 
         public override ActionEnum Process() {
-            throw new NotImplementedException();
+            fadeOut += 0.02f;
+            if (fadeOut >= 1.00f) {
+                render.enabled = true;
+                Status = ActionEnum.STATUS_COMPLETED;
+            Debug.Log("exiting store");
+            }
+            return Status;
         }
 
         public override void Terminate() {
             throw new NotImplementedException();
         }
     }
-}
+
