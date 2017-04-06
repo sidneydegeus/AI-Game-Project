@@ -6,7 +6,7 @@ using UnityEngine;
 public class MovingEntity : BaseEntity {
 
     Vector3[] path;
-    Vector3 currentWaypoint;
+    protected Vector3 currentWaypoint;
     int targetIndex;
 
     // this is really ugly, but I don't know a better solution right now
@@ -51,6 +51,7 @@ public class MovingEntity : BaseEntity {
                 }
                 currentWaypoint = path[targetIndex];
             }
+
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, Speed * Time.deltaTime);
         }
         // not yet completed
@@ -60,6 +61,7 @@ public class MovingEntity : BaseEntity {
     public Vector3 GetRandomWanderTarget() {   
         float randomX = UnityEngine.Random.Range(-WanderDistance, WanderDistance);
         float randomZ = UnityEngine.Random.Range(-WanderDistance, WanderDistance);
+
         Vector3 targetPosition =  new Vector3(
             transform.position.x + randomX, 
             transform.position.y, 

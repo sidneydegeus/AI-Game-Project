@@ -31,17 +31,21 @@ public class BaseEntity : MonoBehaviour {
 
     protected IEnumerator FindTargetsWithDelay(float delay)
     {
-        while(true)
+        viewMesh = new Mesh();
+        viewMesh.name = "View Mesh";
+        viewMeshFilter.mesh = viewMesh;
+
+        while (true)
         {
             yield return new WaitForSeconds(delay);
             FindVisibleTargets();
         }
     }
 
-    //void LateUpdate()
-    //{
-    //    DrawFieldOfView();
-    //}
+    void LateUpdate()
+    {
+        DrawFieldOfView();
+    }
 
     void FindVisibleTargets()
     {

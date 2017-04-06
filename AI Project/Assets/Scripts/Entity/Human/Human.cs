@@ -6,6 +6,7 @@ using System;
 public class Human : MovingEntity {
 
     Think think;
+
     private IHumanBehaviour humanBehaviour;
     public IHumanBehaviour HumanBehaviour {
         get {
@@ -33,13 +34,16 @@ public class Human : MovingEntity {
         HumanBehaviour = new GoodHumanBehaviour(this);
         think = new Think(this);
         SetHumanValues();
-        //StartCoroutine(FindTargetsWithDelay(.2f));
+
+        StartCoroutine("FindTargetsWithDelay", 2);
         StartCoroutine(Tick());
     }
 
     void Update() {
         think.Process();
 
+        if (currentWaypoint != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(currentWaypoint);
         // maybe some physics calculation here to reduce health upon hit?
     }
 
