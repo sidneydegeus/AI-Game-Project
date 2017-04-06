@@ -25,6 +25,7 @@ abstract class ActionGroup : Action {
     override
     public ActionEnum Process() {
         if (Status == ActionEnum.STATUS_FAILED) {
+            Debug.Log("do i do this?");
             Terminate();
             return Status;
         }
@@ -40,7 +41,7 @@ abstract class ActionGroup : Action {
         // Use peek instead of pop? or use something else than a stack? might gain performance
 
         if (ActionListSize() > 0) {
-            Action action = PerformAction();
+            Action action = CurrentAction();
             if (action.Status == ActionEnum.STATUS_INACTIVE) {
                 action.Activate();
             }
@@ -66,7 +67,7 @@ abstract class ActionGroup : Action {
         return actionList.Pop();
     }
 
-    protected Action PerformAction() {
+    protected Action CurrentAction() {
         return actionList.Peek();
     }
 

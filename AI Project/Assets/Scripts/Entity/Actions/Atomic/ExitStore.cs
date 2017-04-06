@@ -13,7 +13,7 @@ using UnityEngine;
         public ExitStore(MovingEntity _entity) : base(_entity) {
             Description = "Entering store";
             human = (Human)entity;
-            render = human.GetComponent<Renderer>();
+            render = human.transform.GetChild(0).GetComponent<Renderer>();
         fadeOut = 0.00f;
     }
 

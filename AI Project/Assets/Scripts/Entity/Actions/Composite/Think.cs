@@ -21,13 +21,14 @@ class Think : ActionGroup {
 
     override
     protected void AdditionalProcess() {
-        if (human.Hunger > 5) {
-            GoToGroceryStore();
-        }
-
         // whenever there is nothing to do, go wander
         if (ActionListSize() == 0) {
             AddAction(new Wander(entity));
+        }
+
+        Action action = CurrentAction();
+        if (human.Hunger > 5 && action.GetType() != typeof(GoToGroceryStore)) {
+            GoToGroceryStore();
         }
     }
 
