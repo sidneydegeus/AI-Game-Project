@@ -30,11 +30,10 @@ public class Human : MovingEntity {
     //public List<Inventory> inventory;
 
     void Start() {
-        grid = GetComponent<Grid>();
-        HumanBehaviour = new GoodHumanBehaviour();
+        HumanBehaviour = new GoodHumanBehaviour(this);
         think = new Think(this);
         SetHumanValues();
-        StartCoroutine(FindTargetsWithDelay(.2f));
+        //StartCoroutine(FindTargetsWithDelay(.2f));
         StartCoroutine(Tick());
     }
 

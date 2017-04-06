@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IHumanBehaviour {
     void Eat();
-    void Purchase();
+    void Purchase(Item item);
     void Attack();
     void Rest();
 }

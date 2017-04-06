@@ -19,7 +19,7 @@ public class BadHumanBehaviour : IHumanBehaviour {
         throw new NotImplementedException();
     }
 
-    public void Purchase() {
+    public void Purchase(Item item) {
         throw new NotImplementedException();
     }
 

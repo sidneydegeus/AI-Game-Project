@@ -5,12 +5,14 @@ using System.Text;
 
     class PurchaseItem : Action {
 
-        Human human;
+    Human human;
+    Item item;
     float buyingItem;
 
-        public PurchaseItem(MovingEntity _entity) : base(_entity) {
+        public PurchaseItem(MovingEntity _entity, Item _item) : base(_entity) {
             Description = "Purchasing item";
             human = (Human)entity;
+        item = _item;
         buyingItem = 1.00f;
     }
 
@@ -21,8 +23,7 @@ using System.Text;
         public override ActionEnum Process() {
             buyingItem -= 0.02f;
             if (buyingItem <= 0.00f) {
-                human.HumanBehaviour.Purchase();
-                human.Hunger -= 5;
+                human.HumanBehaviour.Purchase(item);
                 Status = ActionEnum.STATUS_COMPLETED;
             }
             return Status;

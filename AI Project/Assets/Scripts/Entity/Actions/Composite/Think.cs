@@ -27,7 +27,7 @@ class Think : ActionGroup {
         }
 
         Action action = CurrentAction();
-        if (human.Hunger > 5 && action.GetType() != typeof(GoToGroceryStore)) {
+        if (human.Hunger > 50 && action.GetType() != typeof(GoToGroceryStore)) {
             GoToGroceryStore();
         }
     }

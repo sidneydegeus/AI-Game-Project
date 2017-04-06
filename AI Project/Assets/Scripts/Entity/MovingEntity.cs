@@ -12,8 +12,6 @@ public class MovingEntity : BaseEntity {
     // this is really ugly, but I don't know a better solution right now
     bool wanderSuccess = true;
 
-    protected Grid grid;
-
     public float Speed { get { return 1; } }
     [Range(2,15)]
     public float WanderDistance;

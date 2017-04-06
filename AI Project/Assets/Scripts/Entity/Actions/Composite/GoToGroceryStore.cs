@@ -9,7 +9,7 @@ class GoToGroceryStore : ActionGroup {
         Description = "Go To Grocerystore";
         // buy food
         AddAction(new ExitStore(entity));
-        AddAction(new PurchaseItem(entity));
+        AddAction(new PurchaseItem(entity, new Food()));
         AddAction(new EnterStore(entity));
         FindPathToGroceryStore();
     }
