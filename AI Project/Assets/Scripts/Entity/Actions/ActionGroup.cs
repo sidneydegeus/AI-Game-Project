@@ -7,6 +7,7 @@ abstract class ActionGroup : Action {
 
     // using stack, so what is added first becomes last, what is added last, becomes first
     Stack<Action> actionList;
+    
 
     public ActionGroup(MovingEntity _entity) : base(_entity) {
         actionList = new Stack<Action>();
@@ -59,6 +60,7 @@ abstract class ActionGroup : Action {
 
     // adds an action to the list
     protected void AddAction(Action action) {
+        DescriptionList.Add(action.Description);
         actionList.Push(action);
     }
 

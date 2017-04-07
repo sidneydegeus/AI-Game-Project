@@ -28,6 +28,12 @@ public class Human : MovingEntity {
     public int Hunger;
     public int Money;
     public int Health;
+
+    [HideInInspector]
+    public bool Selected;
+
+    [HideInInspector]
+    public List<string> ActionDescriptionList;
     //public List<Inventory> inventory;
 
     void Start() {
@@ -37,13 +43,20 @@ public class Human : MovingEntity {
 
         StartCoroutine("FindTargetsWithDelay", 2);
         StartCoroutine(Tick());
+        Selected = false;
+        ActionDescriptionList = new List<string>();
     }
 
     void Update() {
         think.Process();
-
-        if (currentWaypoint != Vector3.zero)
-            transform.rotation = Quaternion.LookRotation(currentWaypoint);
+        //ActionDescriptionList.Clear();
+        //ActionDescriptionList.Add(think.Description);
+        //foreach (string thinkDesc in think.DescriptionList) {
+        //    ActionDescriptionList.Add(thinkDesc);
+        //}
+        transform.rotation = Quaternion.LookRotation(currentWaypoint);
+        //if (currentWaypoint != Vector3.zero)
+           
         // maybe some physics calculation here to reduce health upon hit?
     }
 

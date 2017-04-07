@@ -5,8 +5,22 @@ using UnityEngine;
 
 public class BadHumanBehaviour : IHumanBehaviour {
 
+    private string description;
+    Human human;
+
     public BadHumanBehaviour() {
         WorldManager.BadHumanCount++;
+        Description = "Bad";
+    }
+
+    public string Description {
+        get {
+            return description;
+        }
+
+        set {
+            description = value;
+        }
     }
 
     public void Attack() {

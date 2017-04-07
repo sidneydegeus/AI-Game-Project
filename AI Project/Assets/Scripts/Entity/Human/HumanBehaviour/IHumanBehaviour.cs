@@ -7,4 +7,6 @@ public interface IHumanBehaviour {
     void Purchase(Item item);
     void Attack();
     void Rest();
+
+    string Description { get; set; }
 }
