@@ -5,9 +5,15 @@ using UnityEngine;
 
 public class MovingEntity : BaseEntity {
 
-    Vector3[] path;
+    const float minPathUpdateTime = .2f;
+    const float pathUpdateMoveThreshold = .5f;
     protected Vector3 currentWaypoint;
-    int targetIndex;
+    Path path;
+
+    public Transform target;
+    public float turnSpeed = 3;
+    public float turnDst = 5;
+    public float stoppingDst = 10;
 
     // this is really ugly, but I don't know a better solution right now
     bool wanderSuccess = true;
@@ -23,16 +29,21 @@ public class MovingEntity : BaseEntity {
         PathRequestManager.RequestPath(transform.position, target, OnPathFound);
     }
 
-    public void OnPathFound(Vector3[] newPath, bool pathSuccessful) {
+  //  void Start()
+  //  {
+  //      StartCoroutine(UpdatePath());
+   // }
+
+    public void OnPathFound(Vector3[] waypoints, bool pathSuccessful) {
         if (pathSuccessful) {
-            path = newPath;
-            targetIndex = 0;
+            path = new Path(waypoints, transform.position, turnDst, stoppingDst);
             try {
-                currentWaypoint = path[0];
+                currentWaypoint = waypoints[0];
             } catch(Exception e) {
                 currentWaypoint = transform.position;
             }
             wanderSuccess = true;
+
         }
         else {
             wanderSuccess = false;
@@ -40,19 +51,80 @@ public class MovingEntity : BaseEntity {
         }
     }
 
+    IEnumerator UpdatePath()
+    {
+        if (Time.timeSinceLevelLoad < .3f)
+        {
+            yield return new WaitForSeconds(.3f);
+        }
+        PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+
+        float sqrMoveThreshold = pathUpdateMoveThreshold * pathUpdateMoveThreshold;
+        Vector3 targetPosOld = target.position;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(minPathUpdateTime);
+            if ((target.position - targetPosOld).sqrMagnitude > sqrMoveThreshold)
+            {
+                PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+                targetPosOld = target.position;
+            }
+        }
+    }
+
     public ActionEnum ExecuteFollowPath() {
         if (path != null) {
-            if (transform.position == currentWaypoint) {
-                targetIndex++;
-                if (targetIndex >= path.Length) {
-                    //completed
-                    //Destroy(this.gameObject);
-                    return ActionEnum.STATUS_COMPLETED;
-                }
-                currentWaypoint = path[targetIndex];
-            }
+            bool followingPath = true;
+            int pathIndex = 0;
+            transform.LookAt(path.lookPoints[0]);
+            float speedPercent = 1.5f;
 
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, Speed * Time.deltaTime);
+          //  while (followingPath)
+        //    {
+                Vector2 pos2D = new Vector2(transform.position.x, transform.position.z);
+                while (path.turnBoundaries[pathIndex].HasCrossedLine(pos2D))
+                {
+                    if (pathIndex == path.finishLineIndex)
+                    {
+                        followingPath = false;
+                        break;
+                    }
+                    else
+                    {
+                        pathIndex++;
+                    }
+                }
+
+                if (followingPath)
+                {
+
+                    if (pathIndex >= path.slowDownIndex && stoppingDst > 0)
+                    {
+                        speedPercent = Mathf.Clamp01(path.turnBoundaries[path.finishLineIndex].DistanceFromPoint(pos2D) / stoppingDst);
+                        if (speedPercent < 0.01f)
+                        {
+                            followingPath = false;
+                        }
+                }
+                    Quaternion targetRotation = Quaternion.LookRotation(path.lookPoints[pathIndex] - transform.position);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed);
+                    transform.Translate(Vector3.forward * Time.deltaTime * Speed * speedPercent, Space.Self);
+                }
+
+        //    }
+
+            //if (transform.position == currentWaypoint) {
+            //    targetIndex++;
+            //    if (targetIndex >= path.Length) {
+            //        //completed
+            //        //Destroy(this.gameObject);
+            //        return ActionEnum.STATUS_COMPLETED;
+            //    }
+            //    currentWaypoint = path[targetIndex];
+            //}
+
+            //transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, Speed * Time.deltaTime);
         }
         // not yet completed
         return ActionEnum.STATUS_ACTIVE;
@@ -77,17 +149,7 @@ public class MovingEntity : BaseEntity {
 
     public void OnDrawGizmos() {
         if (path != null) {
-            for (int i = targetIndex; i < path.Length; i++) {
-                Gizmos.color = Color.black;
-                Gizmos.DrawCube(path[i], Vector3.one);
-
-                if (i == targetIndex) {
-                    Gizmos.DrawLine(transform.position, path[i]);
-                }
-                else {
-                    Gizmos.DrawLine(path[i - 1], path[i]);
-                }
-            }
+            path.DrawWithGizmos();
         }
     }
 }

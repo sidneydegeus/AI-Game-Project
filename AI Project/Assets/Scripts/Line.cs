@@ -4,6 +4,7 @@ using UnityEngine;
 
 public struct Line
 {
+
     const float verticalLineGradient = 1e5f;
 
     float gradient;
@@ -11,7 +12,7 @@ public struct Line
     Vector2 pointOnLine_1;
     Vector2 pointOnLine_2;
 
-    //float gradientPerpendicular;
+    float gradientPerpendicular;
 
     bool approachSide;
 
@@ -20,15 +21,23 @@ public struct Line
         float dx = pointOnLine.x - pointPerpendicularToLine.x;
         float dy = pointOnLine.y - pointPerpendicularToLine.y;
 
-        if (dy == 0)
+        if (dx == 0)
+        {
+            gradientPerpendicular = verticalLineGradient;
+        }
+        else
+        {
+            gradientPerpendicular = dy / dx;
+        }
+
+        if (gradientPerpendicular == 0)
         {
             gradient = verticalLineGradient;
         }
         else
         {
-            gradient = -dx / dy;
+            gradient = -1 / gradientPerpendicular;
         }
-
 
         y_intercept = pointOnLine.y - gradient * pointOnLine.x;
         pointOnLine_1 = pointOnLine;
@@ -46,6 +55,14 @@ public struct Line
     public bool HasCrossedLine(Vector2 p)
     {
         return GetSide(p) != approachSide;
+    }
+
+    public float DistanceFromPoint(Vector2 p)
+    {
+        float yInterceptPerpendicular = p.y - gradientPerpendicular * p.x;
+        float intersectX = (yInterceptPerpendicular - y_intercept) / (gradient - gradientPerpendicular);
+        float intersectY = gradient * intersectX + y_intercept;
+        return Vector2.Distance(p, new Vector2(intersectX, intersectY));
     }
 
     public void DrawWithGizmos(float length)
