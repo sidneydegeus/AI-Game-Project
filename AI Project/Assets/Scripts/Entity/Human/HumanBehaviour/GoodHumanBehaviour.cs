@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GoodHumanBehaviour : IHumanBehaviour {
@@ -30,8 +31,16 @@ public class GoodHumanBehaviour : IHumanBehaviour {
     }
 
     public void Eat() {
-        // a good human goes to the grocery store to buy food and then eat it
-        throw new NotImplementedException();
+        foreach (Item item in human.Inventory.ToList()) {
+            if (item.GetType() == typeof(Food)) {
+                Food food = (Food)item;
+                human.Hunger -= food.HungerValue;
+                if (human.Hunger < 0) {
+                    human.Hunger = 0;
+                }
+                human.Inventory.Remove(food);
+            }
+        }
     }
 
     public void Purchase(Item item) {
@@ -47,9 +56,8 @@ public class GoodHumanBehaviour : IHumanBehaviour {
                 amountToBuy = foodAmountRequired;
             }
             human.Money -= amountToBuy * food.Cost;
-            human.Hunger -= amountToBuy * food.HungerValue;
-            if (human.Hunger < 0) {
-                human.Hunger = 0;
+            for (int i = 0; i < amountToBuy; i++) {
+                human.Inventory.Add(food);
             }
         }
 

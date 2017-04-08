@@ -33,18 +33,21 @@ public class Human : MovingEntity {
     public bool Selected;
 
     [HideInInspector]
-    public List<string> ActionDescriptionList;
-    //public List<Inventory> inventory;
+    public List<Action> ActionList;
+
+    [HideInInspector]
+    public List<Item> Inventory;
 
     void Start() {
         HumanBehaviour = new GoodHumanBehaviour(this);
+        ActionList = new List<Action>();
+        Inventory = new List<Item>();
         think = new Think(this);
         SetHumanValues();
 
         StartCoroutine("FindTargetsWithDelay", 2);
         StartCoroutine(Tick());
         Selected = false;
-        ActionDescriptionList = new List<string>();
     }
 
     void Update() {

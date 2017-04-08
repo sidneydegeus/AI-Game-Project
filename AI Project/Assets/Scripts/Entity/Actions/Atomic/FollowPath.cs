@@ -10,7 +10,7 @@ class FollowPath : Action {
     Vector3 target;
 
     public FollowPath(MovingEntity _entity, Vector3 _target) : base(_entity) {
-        Description = "Following path to target";
+        Description = "Following path (A)";
         target = _target;
         Weight = 10;
     }
@@ -27,7 +27,7 @@ class FollowPath : Action {
     }
 
     public override void Terminate() {
-        Status = ActionEnum.STATUS_FAILED;
+        //Status = ActionEnum.STATUS_FAILED;
     }
 }
 

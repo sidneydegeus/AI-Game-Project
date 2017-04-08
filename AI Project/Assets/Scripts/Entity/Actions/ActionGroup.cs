@@ -6,11 +6,11 @@ using UnityEngine;
 abstract class ActionGroup : Action {
 
     // using stack, so what is added first becomes last, what is added last, becomes first
-    Stack<Action> actionList;
+    Stack<Action> actionStack;
     
 
     public ActionGroup(MovingEntity _entity) : base(_entity) {
-        actionList = new Stack<Action>();
+        actionStack = new Stack<Action>();
     }
 
     override
@@ -20,16 +20,15 @@ abstract class ActionGroup : Action {
 
     override
     public void Terminate() {
-        ClearActionList();
+        for (int i = 0; i < ActionStackSize(); i++) {
+            RemoveAction();
+        }
+        //ClearActionList();
     }
 
     override
     public ActionEnum Process() {
-        if (Status == ActionEnum.STATUS_FAILED) {
-            Debug.Log("do i do this?");
-            Terminate();
-            return Status;
-        }
+
         // check if action is completed or failed and remove it
 
 
@@ -38,10 +37,7 @@ abstract class ActionGroup : Action {
         // that are defined in classes such as Think
         AdditionalProcess();
 
-        // TODO:
-        // Use peek instead of pop? or use something else than a stack? might gain performance
-
-        if (ActionListSize() > 0) {
+        if (ActionStackSize() > 0) {
             Action action = CurrentAction();
             if (action.Status == ActionEnum.STATUS_INACTIVE) {
                 action.Activate();
@@ -53,6 +49,12 @@ abstract class ActionGroup : Action {
         } else {
             this.Status = ActionEnum.STATUS_COMPLETED;
         }
+
+        if (Status == ActionEnum.STATUS_FAILED) {
+            Debug.Log("do i do this?");
+            Terminate();
+            return Status;
+        }
         return Status;
     }
 
@@ -60,25 +62,42 @@ abstract class ActionGroup : Action {
 
     // adds an action to the list
     protected void AddAction(Action action) {
-        DescriptionList.Add(action.Description);
-        actionList.Push(action);
+        actionStack.Push(action);
     }
 
     // removes an action from the list and returns the action
     protected Action RemoveAction() {
-        return actionList.Pop();
+        Action removedAction = actionStack.Pop();
+        removedAction.Terminate();
+        removeFromTextList(removedAction);
+        return removedAction;
     }
 
     protected Action CurrentAction() {
-        return actionList.Peek();
+        try {
+            return actionStack.Peek();
+        } catch(Exception e) {
+            return null;
+        }
     }
 
     // clears the entire action list
     protected void ClearActionList() {
-        actionList.Clear();
+        actionStack.Clear();
     }
 
-    protected int ActionListSize() {
-        return actionList.Count;
+    protected int ActionStackSize() {
+        return actionStack.Count;
     }
+
+    void removeFromTextList(Action action) {
+        Human human = (Human)entity;
+        for (int i = 0; i < human.ActionList.Count; i++) {
+            if (action.Description.Equals(human.ActionList[i].Description)) {
+                human.ActionList.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
 }

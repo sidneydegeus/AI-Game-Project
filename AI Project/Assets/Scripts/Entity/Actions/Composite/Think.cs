@@ -11,9 +11,9 @@ class Think : ActionGroup {
 
     public Think(MovingEntity _entity) : base(_entity) {
         Activate();
-        Description = "Thinking";
+        Description = "Thinking (C)";
         human = (Human)entity;
-        GoToGroceryStore();
+        //GoToGroceryStore();
         //GameObject temp = GameObject.Find("Target");
         //Transform target = temp.GetComponent<Transform>();
         //AddAction(new FollowPath(entity, target.position));
@@ -21,19 +21,18 @@ class Think : ActionGroup {
 
     override
     protected void AdditionalProcess() {
-        // whenever there is nothing to do, go wander
-        if (ActionListSize() == 0) {
+
+        // whenever there is nothing else to do, go wander
+        if (ActionStackSize() == 0) {
             AddAction(new Wander(entity));
         }
 
         Action action = CurrentAction();
-        if (human.Hunger > 50 && action.GetType() != typeof(GoToGroceryStore)) {
-            GoToGroceryStore();
+        if (human.Hunger > 5 && action.GetType() != typeof(GoingToEat)) {
+            AddAction(new GoingToEat(entity));
         }
     }
 
-    void GoToGroceryStore() {
-        AddAction(new GoToGroceryStore(entity));
-    }
+
 }
 

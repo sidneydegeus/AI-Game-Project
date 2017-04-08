@@ -10,10 +10,10 @@ using System.Text;
     float buyingItem;
 
         public PurchaseItem(MovingEntity _entity, Item _item) : base(_entity) {
-            Description = "Purchasing item";
-            human = (Human)entity;
         item = _item;
+        human = (Human)entity;
         buyingItem = 1.00f;
+        Description = "Purchase (" + item.Name + ") (A) ";
     }
 
         public override void Activate() {
@@ -21,7 +21,7 @@ using System.Text;
         }
 
         public override ActionEnum Process() {
-            buyingItem -= 0.02f;
+            buyingItem -= 0.01f;
             if (buyingItem <= 0.00f) {
                 human.HumanBehaviour.Purchase(item);
                 Status = ActionEnum.STATUS_COMPLETED;
@@ -30,7 +30,7 @@ using System.Text;
         }
 
         public override void Terminate() {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 

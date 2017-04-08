@@ -32,6 +32,7 @@ public class WorldManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Application.runInBackground = true;
         AddHumanButton.onClick.AddListener(AddHuman);
         ResetFieldButton.onClick.AddListener(ResetField);
         thinkingTextHolder = GameObject.Find("Thinking");
@@ -66,7 +67,7 @@ public class WorldManager : MonoBehaviour {
 
     IEnumerator SpawnHuman() {
         while (true) {
-            if (GoodHumanCount + BadHumanCount < 20) { 
+            if (GoodHumanCount + BadHumanCount < 10) { 
                 AddHuman();
             }
             yield return new WaitForSeconds(5.0f);
@@ -102,10 +103,14 @@ public class WorldManager : MonoBehaviour {
             }
 
             int i = 0;
-            foreach (string actionDesc in selectedHuman.ActionDescriptionList) {
-                actionTextList[i].text = actionDesc;
-                i++;
-            };
+            foreach (Action action in selectedHuman.ActionList) {
+                if (i < actionTextList.Count) {
+                    actionTextList[i].text = action.Description;
+                    i++;
+                } else {
+                    break;
+                }
+            }
         } 
     }
 }

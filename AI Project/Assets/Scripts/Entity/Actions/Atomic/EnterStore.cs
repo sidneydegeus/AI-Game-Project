@@ -11,7 +11,7 @@ using UnityEngine;
     float fadeOut;
 
         public EnterStore(MovingEntity _entity) : base(_entity) {
-            Description = "Entering store";
+            Description = "Enter store (A)";
             human = (Human)entity;
             render = human.transform.GetChild(0).GetComponent<Renderer>();
          fadeOut = 1.00f;
@@ -22,7 +22,7 @@ using UnityEngine;
         }
 
         public override ActionEnum Process() {
-            fadeOut -= 0.02f;
+            fadeOut -= 0.01f;
             if (fadeOut <= 0) {
                 render.enabled = false;
                 Status = ActionEnum.STATUS_COMPLETED;
@@ -32,6 +32,6 @@ using UnityEngine;
         }
 
         public override void Terminate() {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }

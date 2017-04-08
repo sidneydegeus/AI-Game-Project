@@ -5,13 +5,17 @@ using System.Text;
 using UnityEngine;
 
 class GoToGroceryStore : ActionGroup {
+
+    List<Action> localActions;
+
     public GoToGroceryStore(MovingEntity _entity) : base(_entity) {
-        Description = "Go To Grocerystore";
-        // buy food
-        AddAction(new ExitStore(entity));
-        AddAction(new PurchaseItem(entity, new Food()));
-        AddAction(new EnterStore(entity));
-        FindPathToGroceryStore();
+        Description = "Go To Grocerystore (C)";
+        localActions = new List<Action>();
+        localActions.Add(FindPathToGroceryStore());
+        localActions.Add(new EnterStore(entity));
+        localActions.Add(new PurchaseItem(entity, new Food()));
+        localActions.Add(new ExitStore(entity));
+        AddToStack();
     }
 
     override
@@ -19,9 +23,16 @@ class GoToGroceryStore : ActionGroup {
         //Debug.Log("processing: " + Description);
     }
 
-    void FindPathToGroceryStore() {
+    Action FindPathToGroceryStore() {
         GameObject temp = GameObject.Find("GroceryStore");
         Transform target = temp.GetComponent<Transform>();
-        AddAction(new FollowPath(entity, target.position));
+        return new FollowPath(entity, target.position);
+    }
+
+    void AddToStack() {
+        localActions.Reverse();
+        foreach (Action action in localActions) {
+            AddAction(action);
+        }
     }
 }
