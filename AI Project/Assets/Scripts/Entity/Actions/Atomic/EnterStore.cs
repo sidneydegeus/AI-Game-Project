@@ -14,7 +14,7 @@ using UnityEngine;
             Description = "Enter store (A)";
             human = (Human)entity;
             render = human.transform.GetChild(0).GetComponent<Renderer>();
-         fadeOut = 1.00f;
+            fadeOut = 1.00f;
     }
 
         public override void Activate() {

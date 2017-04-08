@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class WorldManager : MonoBehaviour {
 
     public GameObject[] spawners = new GameObject[4];
-    public Human prefabHuman;
+    public Human prefabWoman;
+    public Human prefabMan;
 
     public Text HumanCountText;
     public Text GoodHumanCountText;
@@ -77,8 +78,19 @@ public class WorldManager : MonoBehaviour {
     void AddHuman() {
         System.Random r = new System.Random();
         int index = r.Next(0, 4);
+
+        float x = r.Next(1, 3);
+        if (x == 1)
+        {
+            Human spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as Human;
+        }
+        else
+        {
+            Human spawnedHuman = Instantiate(prefabWoman, spawners[index].transform.position, Quaternion.identity) as Human;
+        }
+
         //Human spawnedHuman = Instantiate(human, spawners[index].transform.position, Quaternion.identity) as Human;
-        Human spawnedHuman = Instantiate(prefabHuman, spawners[index].transform.position, Quaternion.identity) as Human;
+      //  Human spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as Human;
     }
 
     void ResetField() {

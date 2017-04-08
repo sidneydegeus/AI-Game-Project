@@ -57,7 +57,7 @@ public class Human : MovingEntity {
         //foreach (string thinkDesc in think.DescriptionList) {
         //    ActionDescriptionList.Add(thinkDesc);
         //}
-        transform.rotation = Quaternion.LookRotation(currentWaypoint);
+      //  transform.rotation = Quaternion.LookRotation(currentWaypoint);
         //if (currentWaypoint != Vector3.zero)
            
         // maybe some physics calculation here to reduce health upon hit?

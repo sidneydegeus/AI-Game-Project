@@ -5,25 +5,20 @@ using System;
 
 public class Pathfinding : MonoBehaviour {
 
-    PathRequestManager pathRequestManager;
     Grid grid;
 
     void Awake() {
-        pathRequestManager = GetComponent<PathRequestManager>();
         grid = GetComponent<Grid>();
     }
 
-    public void StartFindPath(Vector3 startPos, Vector3 targetPos) {
-        StartCoroutine(FindPath(startPos, targetPos));
-    }
 
-    IEnumerator FindPath(Vector3 startPosition, Vector3 targetPosition) {
+    public void FindPath(PathRequest request, Action<PathResult> callback) {
 
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;
 
-        Node startNode = grid.NodeFromWorldPoint(startPosition);
-        Node targetNode = grid.NodeFromWorldPoint(targetPosition);
+        Node startNode = grid.NodeFromWorldPoint(request.pathStart);
+        Node targetNode = grid.NodeFromWorldPoint(request.pathEnd);
 
         if (startNode.walkable && targetNode.walkable) {
             Heap<Node> openSet = new Heap<Node>(grid.MaxSize);
@@ -58,11 +53,11 @@ public class Pathfinding : MonoBehaviour {
                 }
             }
         }
-        yield return null;
         if (pathSuccess) {
             waypoints = backtrack(startNode, targetNode);
+            pathSuccess = waypoints.Length > 0;
         }
-        pathRequestManager.FinishedProcessingPath(waypoints, pathSuccess);
+        callback(new PathResult(waypoints, pathSuccess, request.callback));
     }
 
     Vector3[] backtrack(Node startNode, Node targetNode) {
