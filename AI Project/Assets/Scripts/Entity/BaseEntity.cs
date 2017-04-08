@@ -19,15 +19,10 @@ public class BaseEntity : MonoBehaviour {
     Mesh viewMesh;
 
     [HideInInspector]
-    public List<Transform> visibleTargets = new List<Transform>();
+    public bool Selected;
 
-    //void Start()
-    //{
-    //    viewMesh = new Mesh();
-    //    viewMesh.name = "View Mesh";
-    //    viewMeshFilter.mesh = viewMesh;
-    //    StartCoroutine("FindTargetsWithDelay", 2);
-    //}
+    [HideInInspector]
+    public List<Transform> visibleTargets = new List<Transform>();
 
     protected IEnumerator FindTargetsWithDelay(float delay)
     {
@@ -44,7 +39,9 @@ public class BaseEntity : MonoBehaviour {
 
     void LateUpdate()
     {
-        DrawFieldOfView();
+        if (Selected) {
+            DrawFieldOfView();
+        }
     }
 
     void FindVisibleTargets()

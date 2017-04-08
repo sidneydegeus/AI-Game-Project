@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class ActionGroup : Action {
+public abstract class ActionGroup : Action {
 
     // using stack, so what is added first becomes last, what is added last, becomes first
     Stack<Action> actionStack;
@@ -61,7 +61,15 @@ abstract class ActionGroup : Action {
     protected abstract void AdditionalProcess();
 
     // adds an action to the list
-    protected void AddAction(Action action) {
+    public void AddAction(Action action) {
+        if (ActionStackSize() > 0) {
+            Action currentAction = CurrentAction();
+            Debug.Log("do i get here?");
+            if (currentAction.GetType() == typeof(Wander)) {
+                currentAction.Terminate();
+                Debug.Log("and how about here");
+            }
+        }
         actionStack.Push(action);
     }
 

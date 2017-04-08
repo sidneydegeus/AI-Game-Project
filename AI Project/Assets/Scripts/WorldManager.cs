@@ -43,25 +43,35 @@ public class WorldManager : MonoBehaviour {
     void Update() {
         UpdateGUI();
 
-        if (Input.GetMouseButtonDown(0)) {
-
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) {
             RaycastHit hitInfo = new RaycastHit();
             bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
-            if (hit) {
-                //Debug.Log("Hit " + hitInfo.transform.gameObject.name);
-                if (hitInfo.transform.gameObject.tag == "Human") {
-                    selectedHuman = hitInfo.transform.gameObject.GetComponent<Human>();
-                    selectedHuman.Selected = true;
-                } else {
-                    selectedHuman = null;
-                    HumanSelectedText.text = "No";
-                    HumanBehaviourText.text = "";
-                    HumanHealthText.text = "0";
-                    HumanHungerText.text = "0";
-                    HumanMoneyText.text = "0";
+
+            if (Input.GetMouseButtonDown(0)) {
+                if (hit) {
+                    //Debug.Log("Hit " + hitInfo.transform.gameObject.name);
+                    if (hitInfo.transform.gameObject.tag == "Human") {
+                        selectedHuman = hitInfo.transform.gameObject.GetComponent<Human>();
+                        selectedHuman.Selected = true;
+                    }
+                    else {
+                        selectedHuman = null;
+                        HumanSelectedText.text = "No";
+                        HumanBehaviourText.text = "";
+                        HumanHealthText.text = "0";
+                        HumanHungerText.text = "0";
+                        HumanMoneyText.text = "0";
+                    }
                 }
-            } else {
-                Debug.Log("No hit");
+                else {
+                    Debug.Log("No hit");
+                }
+            }
+
+            if (Input.GetMouseButtonDown(1)) {
+                if (hit && selectedHuman != null) {
+                    selectedHuman.Think.AddAction(new FollowPath(selectedHuman, hitInfo.transform.position));
+                }
             }
         }
     }

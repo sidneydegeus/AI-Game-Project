@@ -5,7 +5,7 @@ using System;
 
 public class Human : MovingEntity {
 
-    Think think;
+    public Think Think;
 
     private IHumanBehaviour humanBehaviour;
     public IHumanBehaviour HumanBehaviour {
@@ -30,9 +30,6 @@ public class Human : MovingEntity {
     public int Health;
 
     [HideInInspector]
-    public bool Selected;
-
-    [HideInInspector]
     public List<Action> ActionList;
 
     [HideInInspector]
@@ -42,7 +39,7 @@ public class Human : MovingEntity {
         HumanBehaviour = new GoodHumanBehaviour(this);
         ActionList = new List<Action>();
         Inventory = new List<Item>();
-        think = new Think(this);
+        Think = new Think(this);
         SetHumanValues();
 
         StartCoroutine("FindTargetsWithDelay", 2);
@@ -51,7 +48,7 @@ public class Human : MovingEntity {
     }
 
     void Update() {
-        think.Process();
+        Think.Process();
         //ActionDescriptionList.Clear();
         //ActionDescriptionList.Add(think.Description);
         //foreach (string thinkDesc in think.DescriptionList) {
@@ -64,7 +61,7 @@ public class Human : MovingEntity {
     }
 
     void OnDestroy() {
-        think.Terminate();
+        Think.Terminate();
         StopCoroutine(Tick());
         if (humanBehaviour.GetType() == typeof(GoodHumanBehaviour)) {
             WorldManager.GoodHumanCount--;

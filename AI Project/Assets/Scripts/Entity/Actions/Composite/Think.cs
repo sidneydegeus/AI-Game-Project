@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-class Think : ActionGroup {
+public class Think : ActionGroup {
 
     Human human;
 
