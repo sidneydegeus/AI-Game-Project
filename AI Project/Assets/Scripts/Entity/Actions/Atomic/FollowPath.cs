@@ -8,6 +8,7 @@ using UnityEngine;
 class FollowPath : Action {
 
     Vector3 target;
+    MovingEntity.FollowPathBehaviour followPathBehaviour;
 
     public FollowPath(Human _entity, Vector3 _target) : base(_entity) {
         Description = "Following path (A)";
@@ -17,12 +18,11 @@ class FollowPath : Action {
 
     public override void Activate() {
         Status = ActionEnum.STATUS_ACTIVE;
-        //Debug.Log("im getting activated");
-        entity.RequestPathToTarget(target);
+        followPathBehaviour = new MovingEntity.FollowPathBehaviour(entity, target);
     }
 
     public override ActionEnum Process() {
-        Status = entity.ExecuteFollowPath();
+        Status = followPathBehaviour.Execute();
         return Status;
     }
 
