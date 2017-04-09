@@ -7,6 +7,7 @@ public interface IHumanBehaviour {
     void Purchase(Item item);
     void Attack();
     void Rest();
+    void Tick();
 
     string Description { get; set; }
 }

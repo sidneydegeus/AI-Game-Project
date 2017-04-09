@@ -69,4 +69,18 @@ public class GoodHumanBehaviour : IHumanBehaviour {
         // idk just standard rest?
         throw new NotImplementedException();
     }
+
+    public void Tick() {
+        human.Money += 5;
+        human.Hunger += 1;
+        if (human.Hunger >= 100) {
+            human.Health -= 1;
+        }
+        else if (human.Hunger <= 50) {
+            human.Health += 1;
+            if (human.Health > 100) {
+                human.Health = 100;
+            }
+        }
+    }
 }
