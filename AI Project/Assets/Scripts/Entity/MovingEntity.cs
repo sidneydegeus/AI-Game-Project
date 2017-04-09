@@ -20,7 +20,8 @@ public partial class MovingEntity : BaseEntity {
     [HideInInspector]
     public bool DisplayPathfindToggle;
 
-    public float Speed { get { return 3; } }
+    [Range(1,2)]
+    public float Speed;
     [Range(2, 15)]
     public float WanderDistance;
 

@@ -71,7 +71,7 @@ public class GoodHumanBehaviour : IHumanBehaviour {
     }
 
     public void Tick() {
-        human.Money += 5;
+        human.Money += 8;
         human.Hunger += 1;
         if (human.Hunger >= 100) {
             human.Health -= 1;
