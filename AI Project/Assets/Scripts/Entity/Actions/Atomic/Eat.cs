@@ -5,14 +5,11 @@ using UnityEngine;
 
 public class Eat : Action {
 
-    Human human;
     float eatTime = 1.00f;
 
-    public Eat(MovingEntity _entity) : base(_entity) {
-        human = (Human)entity;
+    public Eat(Human _entity) : base(_entity) {
         Description = "Eat (A)";
     }
-
 
     public override void Activate() {
         Status = ActionEnum.STATUS_ACTIVE;
@@ -21,7 +18,7 @@ public class Eat : Action {
     public override ActionEnum Process() {
         eatTime -= 0.01f;
         if (eatTime <= 0.00f) {
-            human.HumanBehaviour.Eat();
+            entity.HumanBehaviour.Eat();
             Status = ActionEnum.STATUS_COMPLETED;
             Debug.Log("Eating");
         }

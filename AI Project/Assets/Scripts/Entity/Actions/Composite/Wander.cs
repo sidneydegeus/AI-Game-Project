@@ -5,7 +5,7 @@ using UnityEngine;
 
 class Wander : ActionGroup {
 
-    public Wander(MovingEntity _entity) : base(_entity) {
+    public Wander(Human _entity) : base(_entity) {
         Description = "Wander (C)";
         AddAction(new FollowPath(entity, entity.GetRandomWanderTarget()));
     }

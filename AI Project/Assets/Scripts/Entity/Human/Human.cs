@@ -30,14 +30,14 @@ public class Human : MovingEntity {
     public int Health;
 
     [HideInInspector]
-    public List<Action> ActionList;
+    public List<string> ActionDescriptionList;
 
     [HideInInspector]
     public List<Item> Inventory;
 
     void Start() {
         HumanBehaviour = new GoodHumanBehaviour(this);
-        ActionList = new List<Action>();
+        ActionDescriptionList = new List<string>();
         Inventory = new List<Item>();
         Think = new Think(this);
         SetHumanValues();

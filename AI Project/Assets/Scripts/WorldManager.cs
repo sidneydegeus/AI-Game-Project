@@ -51,10 +51,16 @@ public class WorldManager : MonoBehaviour {
                 if (hit) {
                     //Debug.Log("Hit " + hitInfo.transform.gameObject.name);
                     if (hitInfo.transform.gameObject.tag == "Human") {
+                        if (selectedHuman != null) {
+                            selectedHuman.Selected = false;
+                        }
                         selectedHuman = hitInfo.transform.gameObject.GetComponent<Human>();
                         selectedHuman.Selected = true;
                     }
                     else {
+                        if (selectedHuman != null) {
+                            selectedHuman.Selected = false;
+                        }
                         selectedHuman = null;
                         HumanSelectedText.text = "No";
                         HumanBehaviourText.text = "";
@@ -123,11 +129,12 @@ public class WorldManager : MonoBehaviour {
             foreach (Text text in actionTextList) {
                 text.text = "";
             }
-
+            selectedHuman.ActionDescriptionList.Clear();
+            selectedHuman.Think.GetDescription();
             int i = 0;
-            foreach (Action action in selectedHuman.ActionList) {
+            foreach (string description in selectedHuman.ActionDescriptionList) {
                 if (i < actionTextList.Count) {
-                    actionTextList[i].text = action.Description;
+                    actionTextList[i].text = description;
                     i++;
                 } else {
                     break;

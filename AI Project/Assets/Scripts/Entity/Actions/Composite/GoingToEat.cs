@@ -8,12 +8,12 @@ class GoingToEat : ActionGroup {
 
     List<Action> localActions;
 
-    public GoingToEat(MovingEntity _entity) : base(_entity) {
+    public GoingToEat(Human _entity) : base(_entity) {
         Description = "Going To Eat (C)";
-        localActions = new List<Action>();
-        localActions.Add(new GoToGroceryStore(entity));
-        localActions.Add(new Eat(entity));
-        AddToStack();
+        List<Action> actions = new List<Action>();
+        actions.Add(new GoToGroceryStore(entity));
+        actions.Add(new Eat(entity));
+        AddActions(actions);
     }
 
     override
@@ -22,10 +22,5 @@ class GoingToEat : ActionGroup {
     }
 
 
-    void AddToStack() {
-        localActions.Reverse();
-        foreach (Action action in localActions) {
-            AddAction(action);
-        }
-    }
+
 }

@@ -4,35 +4,34 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-    class ExitStore : Action {
+class ExitStore : Action {
 
-        Renderer render;
-        Human human;
+    Renderer render;
+    Human human;
     float fadeOut;
 
-        public ExitStore(MovingEntity _entity) : base(_entity) {
-            Description = "Exit store (A)";
-            human = (Human)entity;
-            render = human.transform.GetChild(0).GetComponent<Renderer>();
+    public ExitStore(Human _entity) : base(_entity) {
+        Description = "Exit store (A)";
+        render = entity.transform.GetChild(0).GetComponent<Renderer>();
         fadeOut = 0.00f;
     }
 
-        public override void Activate() {
-            Status = ActionEnum.STATUS_ACTIVE;
-        }
-
-        public override ActionEnum Process() {
-            fadeOut += 0.01f;
-            if (fadeOut >= 1.00f) {
-                render.enabled = true;
-                Status = ActionEnum.STATUS_COMPLETED;
-            Debug.Log("exiting store");
-            }
-            return Status;
-        }
-
-        public override void Terminate() {
-            //throw new NotImplementedException();
-        }
+    public override void Activate() {
+        Status = ActionEnum.STATUS_ACTIVE;
     }
+
+    public override ActionEnum Process() {
+        fadeOut += 0.01f;
+        if (fadeOut >= 1.00f) {
+            render.enabled = true;
+            Status = ActionEnum.STATUS_COMPLETED;
+            Debug.Log("exiting store");
+        }
+        return Status;
+    }
+
+    public override void Terminate() {
+        //throw new NotImplementedException();
+    }
+}
 

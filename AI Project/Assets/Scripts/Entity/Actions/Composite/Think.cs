@@ -7,12 +7,10 @@ using UnityEngine;
 
 public class Think : ActionGroup {
 
-    Human human;
 
-    public Think(MovingEntity _entity) : base(_entity) {
+    public Think(Human _entity) : base(_entity) {
         Activate();
         Description = "Thinking (C)";
-        human = (Human)entity;
         //GoToGroceryStore();
         //GameObject temp = GameObject.Find("Target");
         //Transform target = temp.GetComponent<Transform>();
@@ -23,12 +21,12 @@ public class Think : ActionGroup {
     protected void AdditionalProcess() {
 
         // whenever there is nothing else to do, go wander
-        if (ActionStackSize() == 0) {
+        if (ActionListCount() == 0) {
             AddAction(new Wander(entity));
         }
 
         Action action = CurrentAction();
-        if (human.Hunger > 5 && action.GetType() != typeof(GoingToEat)) {
+        if (entity.Hunger > 5 && action.GetType() != typeof(GoingToEat)) {
             AddAction(new GoingToEat(entity));
         }
     }

@@ -4,14 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ActionGroup : Action {
-
-    // using stack, so what is added first becomes last, what is added last, becomes first
-    Stack<Action> actionStack;
     
-
-    public ActionGroup(MovingEntity _entity) : base(_entity) {
-        actionStack = new Stack<Action>();
-    }
+    public ActionGroup(Human _entity) : base(_entity) {}
 
     override
     public void Activate() {
@@ -20,24 +14,14 @@ public abstract class ActionGroup : Action {
 
     override
     public void Terminate() {
-        for (int i = 0; i < ActionStackSize(); i++) {
-            RemoveAction();
-        }
-        //ClearActionList();
+        actionLinkedList.Clear();
     }
 
     override
     public ActionEnum Process() {
-
-        // check if action is completed or failed and remove it
-
-
-        // making use of template pattern here
-        // AdditionalProcess will have more specific actions and such
-        // that are defined in classes such as Think
         AdditionalProcess();
 
-        if (ActionStackSize() > 0) {
+        if (ActionListCount() > 0) {
             Action action = CurrentAction();
             if (action.Status == ActionEnum.STATUS_INACTIVE) {
                 action.Activate();
@@ -59,53 +43,4 @@ public abstract class ActionGroup : Action {
     }
 
     protected abstract void AdditionalProcess();
-
-    // adds an action to the list
-    public void AddAction(Action action) {
-        if (ActionStackSize() > 0) {
-            Action currentAction = CurrentAction();
-            Debug.Log("do i get here?");
-            if (currentAction.GetType() == typeof(Wander)) {
-                currentAction.Terminate();
-                Debug.Log("and how about here");
-            }
-        }
-        actionStack.Push(action);
-    }
-
-    // removes an action from the list and returns the action
-    protected Action RemoveAction() {
-        Action removedAction = actionStack.Pop();
-        removedAction.Terminate();
-        removeFromTextList(removedAction);
-        return removedAction;
-    }
-
-    protected Action CurrentAction() {
-        try {
-            return actionStack.Peek();
-        } catch(Exception e) {
-            return null;
-        }
-    }
-
-    // clears the entire action list
-    protected void ClearActionList() {
-        actionStack.Clear();
-    }
-
-    protected int ActionStackSize() {
-        return actionStack.Count;
-    }
-
-    void removeFromTextList(Action action) {
-        Human human = (Human)entity;
-        for (int i = 0; i < human.ActionList.Count; i++) {
-            if (action.Description.Equals(human.ActionList[i].Description)) {
-                human.ActionList.RemoveAt(i);
-                break;
-            }
-        }
-    }
-
 }

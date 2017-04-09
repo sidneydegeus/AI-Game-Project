@@ -7,21 +7,51 @@ public abstract class Action : MonoBehaviour {
     public string Description { get; protected set; }
     public ActionEnum Status { get; set; }
     public int Weight { get; protected set; }
-    protected MovingEntity entity;
 
- 
+    protected Human entity;
+    protected LinkedList<Action> actionLinkedList;
+
     // add a weight variable later?
 
     public abstract void Activate();
     public abstract ActionEnum Process();
     public abstract void Terminate();
 
-    public Action(MovingEntity _entity) {
+    public Action(Human _entity) {
         entity = _entity;
-        // upon creation, the action is initially inactive.
         Status = ActionEnum.STATUS_INACTIVE;
-        Human human = (Human)entity;
-        human.ActionList.Add(this);
+        actionLinkedList = new LinkedList<Action>();
+    }
+
+    public void GetDescription() {
+        entity.ActionDescriptionList.Add(Description);
+        foreach (Action action in actionLinkedList) {
+            action.GetDescription();
+        }
+    }
+
+    // public only so that custom movement path can be chosen...
+    public void AddAction(Action action) {
+        actionLinkedList.AddFirst(action);
+    }
+
+    protected Action CurrentAction() {
+        return actionLinkedList.First.Value;
+    }
+
+    protected void RemoveAction() {
+        actionLinkedList.RemoveFirst();
+    }
+
+    protected void AddActions(List<Action> actions) {
+        actions.Reverse();
+        foreach (Action action in actions) {
+            AddAction(action);
+        }
+    }
+
+    protected int ActionListCount() {
+        return actionLinkedList.Count;
     }
 }
 

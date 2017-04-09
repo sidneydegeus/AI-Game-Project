@@ -6,16 +6,14 @@ using UnityEngine;
 
 class GoToGroceryStore : ActionGroup {
 
-    List<Action> localActions;
-
-    public GoToGroceryStore(MovingEntity _entity) : base(_entity) {
+    public GoToGroceryStore(Human _entity) : base(_entity) {
         Description = "Go To Grocerystore (C)";
-        localActions = new List<Action>();
-        localActions.Add(FindPathToGroceryStore());
-        localActions.Add(new EnterStore(entity));
-        localActions.Add(new PurchaseItem(entity, new Food()));
-        localActions.Add(new ExitStore(entity));
-        AddToStack();
+        List<Action> actions = new List<Action>();
+        actions.Add(FindPathToGroceryStore());
+        actions.Add(new EnterStore(entity));
+        actions.Add(new PurchaseItem(entity, new Food()));
+        actions.Add(new ExitStore(entity));
+        AddActions(actions);
     }
 
     override
@@ -29,10 +27,4 @@ class GoToGroceryStore : ActionGroup {
         return new FollowPath(entity, target.position);
     }
 
-    void AddToStack() {
-        localActions.Reverse();
-        foreach (Action action in localActions) {
-            AddAction(action);
-        }
-    }
 }

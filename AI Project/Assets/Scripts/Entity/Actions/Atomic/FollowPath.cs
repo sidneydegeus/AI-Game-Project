@@ -9,7 +9,7 @@ class FollowPath : Action {
 
     Vector3 target;
 
-    public FollowPath(MovingEntity _entity, Vector3 _target) : base(_entity) {
+    public FollowPath(Human _entity, Vector3 _target) : base(_entity) {
         Description = "Following path (A)";
         target = _target;
         Weight = 10;
