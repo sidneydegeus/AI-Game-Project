@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FuzzyVariable
 {
-    public Dictionary<string, FuzzySet> memberSets = new Dictionary<string, FuzzySet>();
+    public Dictionary<string, FuzzySet> m_MemberSets = new Dictionary<string, FuzzySet>();
 
     public double m_dMinRange;
     public double m_dMaxRange;
@@ -16,6 +16,10 @@ public class FuzzyVariable
         m_dMinRange = 0;
         m_dMaxRange = 0;
         this.m_dString = m_dString;
+    }
+
+    public FuzzyVariable()
+    {
     }
 
     public FuzzySet AddTriangular(string m_dString, double minBound, double maxBound, double peak)
@@ -42,9 +46,12 @@ public class FuzzyVariable
         return leftShoulder;
     }
 
-    public Dictionary<string, double> Fuzzify(double value)
+    public void Fuzzify(double value)
     {
-        throw new NotImplementedException();
+        foreach (KeyValuePair<string, FuzzySet> kvp in m_MemberSets)
+        {
+          
+        }
     }
 
     public float DefuzzifyMaxAv()

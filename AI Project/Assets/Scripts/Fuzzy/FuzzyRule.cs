@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FuzzyRule {
+public class FuzzyRule
+{
     public FuzzyTerm m_pAntescedent;
     public FuzzyTerm m_pConsequent;
 
@@ -14,6 +15,6 @@ public class FuzzyRule {
 
     public void Calculate()
     {
-
+        m_pConsequent.ORwithDOM(m_pAntescedent.GetDOM());
     }
 }

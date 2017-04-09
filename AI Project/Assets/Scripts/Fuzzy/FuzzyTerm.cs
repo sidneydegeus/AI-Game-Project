@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class FuzzyTerm
 {
-    public abstract void GetDOM();
+    public abstract double GetDOM();
     public abstract void ClearDOM();
     public abstract void ORwithDOM(double value);
     public abstract double CalculateDOM(double value);

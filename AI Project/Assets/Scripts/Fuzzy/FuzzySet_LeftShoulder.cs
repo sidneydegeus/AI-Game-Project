@@ -45,4 +45,3 @@ public class FuzzySet_LeftShoulder : FuzzySet
         throw new NotImplementedException();
     }
 }
-	

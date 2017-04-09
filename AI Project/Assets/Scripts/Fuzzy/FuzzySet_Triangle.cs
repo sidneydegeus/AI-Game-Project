@@ -20,7 +20,7 @@ public class FuzzySet_Triangle : FuzzySet
 
     public override double CalculateDOM(double value)
     {
-        throw new NotImplementedException();
+        if(maxBound == peak)
     }
 
     public override void ClearDOM()

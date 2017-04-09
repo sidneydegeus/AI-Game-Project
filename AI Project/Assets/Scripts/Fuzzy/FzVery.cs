@@ -15,7 +15,7 @@ public class FzVery : FuzzyTerm
         throw new NotImplementedException();
     }
 
-    public override void GetDOM()
+    public override double GetDOM()
     {
         throw new NotImplementedException();
     }
