@@ -20,6 +20,7 @@ public class WorldManager : MonoBehaviour {
     public Text HumanHungerText;
     public Text HumanMoneyText;
 
+    public Toggle MusicToggle;
     public Toggle DisplayHumanFovToggle;
     public Toggle DisplayHumanPathfindToggle; 
 
@@ -39,6 +40,8 @@ public class WorldManager : MonoBehaviour {
         Application.runInBackground = true;
         AddHumanButton.onClick.AddListener(AddHuman);
         ResetFieldButton.onClick.AddListener(ResetField);
+        MusicToggle.onValueChanged.AddListener(ToggleMusic);
+        DisplayHumanFovToggle.onValueChanged.AddListener(ToggleFov);
         thinkingTextHolder = GameObject.Find("Thinking");
         //StartCoroutine(SpawnHuman());
     }
@@ -117,6 +120,23 @@ public class WorldManager : MonoBehaviour {
         SceneManager.LoadScene(scene.name);
     }
 
+    void ToggleMusic(bool value) {
+        if (value) {
+            gameObject.GetComponent<AudioSource>().mute = false;
+        } else {
+            gameObject.GetComponent<AudioSource>().mute = true;
+        }
+    }
+
+    void ToggleFov(bool value) {
+        if (value) {
+            selectedHuman.DisplayFovToggle = true;
+        }
+        else {
+            selectedHuman.DisplayFovToggle = false;
+        }
+    }
+
     void UpdateGUI() {
         HumanCountText.text = (GoodHumanCount + BadHumanCount).ToString();
         GoodHumanCountText.text = GoodHumanCount.ToString();
@@ -128,12 +148,6 @@ public class WorldManager : MonoBehaviour {
             HumanHealthText.text = selectedHuman.Health.ToString();
             HumanHungerText.text = selectedHuman.Hunger.ToString();
             HumanMoneyText.text = selectedHuman.Money.ToString();
-
-            if (DisplayHumanFovToggle.isOn) {
-                selectedHuman.DisplayFovToggle = true;
-            } else {
-                selectedHuman.DisplayFovToggle = false;
-            }
 
             foreach (Text text in actionTextList) {
                 text.text = "";

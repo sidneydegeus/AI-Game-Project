@@ -46,6 +46,7 @@ public class Human : MovingEntity {
         SetHumanValues();
         Selected = false;
         projectilePrefab = Resources.Load("projectile") as GameObject;
+        DisplayFovToggle = true;
 
         StartCoroutine("FindTargetsWithDelay", 2);
         StartCoroutine(Tick());
