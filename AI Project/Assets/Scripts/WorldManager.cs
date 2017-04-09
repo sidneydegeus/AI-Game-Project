@@ -20,6 +20,9 @@ public class WorldManager : MonoBehaviour {
     public Text HumanHungerText;
     public Text HumanMoneyText;
 
+    public Toggle DisplayHumanFovToggle;
+    public Toggle DisplayHumanPathfindToggle; 
+
     public Button AddHumanButton;
     public Button ResetFieldButton;
 
@@ -125,6 +128,12 @@ public class WorldManager : MonoBehaviour {
             HumanHealthText.text = selectedHuman.Health.ToString();
             HumanHungerText.text = selectedHuman.Hunger.ToString();
             HumanMoneyText.text = selectedHuman.Money.ToString();
+
+            if (DisplayHumanFovToggle.isOn) {
+                selectedHuman.DisplayFovToggle = true;
+            } else {
+                selectedHuman.DisplayFovToggle = false;
+            }
 
             foreach (Text text in actionTextList) {
                 text.text = "";

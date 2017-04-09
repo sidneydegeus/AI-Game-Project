@@ -16,7 +16,9 @@ public class MovingEntity : BaseEntity {
     float speedPercent = 1;
     Path path;
     bool wanderSuccess = true;
-    
+
+    [HideInInspector]
+    public bool DisplayPathfindToggle;
 
     public float Speed { get { return 3; } }
     [Range(2, 15)]

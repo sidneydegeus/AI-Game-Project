@@ -24,6 +24,9 @@ public class BaseEntity : MonoBehaviour {
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
 
+    [HideInInspector]
+    public bool DisplayFovToggle;
+
     protected IEnumerator FindTargetsWithDelay(float delay)
     {
         viewMesh = new Mesh();
@@ -34,13 +37,6 @@ public class BaseEntity : MonoBehaviour {
         {
             yield return new WaitForSeconds(delay);
             FindVisibleTargets();
-        }
-    }
-
-    void LateUpdate()
-    {
-        if (Selected) {
-            DrawFieldOfView();
         }
     }
 
@@ -64,7 +60,7 @@ public class BaseEntity : MonoBehaviour {
         }
     }
 
-    void DrawFieldOfView()
+    protected void DrawFieldOfView()
     {
         int stepCount = Mathf.RoundToInt(viewAngle * meshResolution);
         float stepAngleSize = viewAngle / stepCount;
@@ -118,6 +114,10 @@ public class BaseEntity : MonoBehaviour {
         viewMesh.vertices = vertices;
         viewMesh.triangles = triangles;
         viewMesh.RecalculateNormals();
+    }
+
+    protected void ClearViewMesh() {
+        viewMesh.Clear();
     }
 
     EdgeInfo FindEdge(ViewCastInfo minViewCast, ViewCastInfo maxViewCast)

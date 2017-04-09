@@ -63,6 +63,12 @@ public class Human : MovingEntity {
             Rigidbody rb = tempProjectile.GetComponent<Rigidbody>();
             rb.velocity = transform.forward * 10;
         }
+
+        if (Selected && DisplayFovToggle) {
+            DrawFieldOfView();
+        } else {
+            ClearViewMesh();
+        }
     }
 
     void OnDestroy() {
