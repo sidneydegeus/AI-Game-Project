@@ -4,6 +4,7 @@
         STATUS_INACTIVE,
         STATUS_COMPLETED,
         STATUS_FAILED,
-        STATUS_CANCELED
+        STATUS_CANCELED,
+        STATUS_ONHOLD
     }
 

@@ -58,12 +58,6 @@ public class Human : MovingEntity {
         }
         Think.Process();         
         // maybe some physics calculation here to reduce health upon hit?
-        if (Input.GetKeyDown("p")) {
-            GameObject tempProjectile = Instantiate(projectilePrefab) as GameObject;
-            tempProjectile.transform.position = transform.position + transform.forward * 2;
-            Rigidbody rb = tempProjectile.GetComponent<Rigidbody>();
-            rb.velocity = transform.forward * 10;
-        }
 
         if (Selected && DisplayFovToggle) {
             DrawFieldOfView();
@@ -81,6 +75,16 @@ public class Human : MovingEntity {
         if (humanBehaviour.GetType() == typeof(BadHumanBehaviour)) {
             WorldManager.BadHumanCount--;
         }
+    }
+
+    public void ShootProjectile(Transform target) {
+        GameObject tempProjectile = Instantiate(projectilePrefab) as GameObject;
+        Vector3 targetDirection = transform.position;
+        targetDirection.y += 0.5f;
+        tempProjectile.transform.position = targetDirection + transform.forward;
+        tempProjectile.transform.LookAt(target);
+        Rigidbody rb = tempProjectile.GetComponent<Rigidbody>();
+        rb.velocity = tempProjectile.transform.forward * 10;
     }
 
     void SetHumanValues() {

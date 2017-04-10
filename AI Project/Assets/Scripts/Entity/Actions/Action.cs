@@ -39,6 +39,10 @@ public abstract class Action : MonoBehaviour {
         return actionLinkedList.First.Value;
     }
 
+    protected Action NextAction() {
+        return actionLinkedList.First.Next.Value;
+    }
+
     protected void RemoveAction() {
         actionLinkedList.RemoveFirst();
     }

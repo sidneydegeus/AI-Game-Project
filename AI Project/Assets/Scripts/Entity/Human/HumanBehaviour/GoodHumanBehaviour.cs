@@ -26,8 +26,7 @@ public class GoodHumanBehaviour : IHumanBehaviour {
     }
 
     public void Attack() {
-        // a good human doesn't attack, but defends instead
-        throw new NotImplementedException();
+        human.ShootProjectile(human.LockedTarget);
     }
 
     public void Eat() {
@@ -71,7 +70,7 @@ public class GoodHumanBehaviour : IHumanBehaviour {
     }
 
     public void Tick() {
-        human.Money += 8;
+        //human.Money += 8;
         human.Hunger += 1;
         if (human.Hunger >= 100) {
             human.Health -= 1;

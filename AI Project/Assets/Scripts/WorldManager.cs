@@ -101,18 +101,18 @@ public class WorldManager : MonoBehaviour {
         System.Random r = new System.Random();
         int index = r.Next(0, 4);
 
-        float x = r.Next(1, 3);
-        if (x == 1)
-        {
-            Human spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as Human;
-        }
-        else
-        {
-            Human spawnedHuman = Instantiate(prefabWoman, spawners[index].transform.position, Quaternion.identity) as Human;
-        }
+        //float x = r.Next(1, 3);
+        //if (x == 1)
+        //{
+        //    Human spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as Human;
+        //}
+        //else
+        //{
+        //    Human spawnedHuman = Instantiate(prefabWoman, spawners[index].transform.position, Quaternion.identity) as Human;
+        //}
 
         //Human spawnedHuman = Instantiate(human, spawners[index].transform.position, Quaternion.identity) as Human;
-      //  Human spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as Human;
+        Human spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as Human;
     }
 
     void ResetField() {

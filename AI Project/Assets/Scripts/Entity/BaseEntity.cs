@@ -11,6 +11,9 @@ public class BaseEntity : MonoBehaviour {
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
+    [HideInInspector]
+    public Transform LockedTarget;
+
     public float meshResolution;
     public int edgeResolveIterations;
     public float edgeDstThreshold;
@@ -21,7 +24,7 @@ public class BaseEntity : MonoBehaviour {
     [HideInInspector]
     public bool Selected;
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
 
     [HideInInspector]

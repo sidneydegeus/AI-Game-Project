@@ -27,6 +27,13 @@ public abstract class ActionGroup : Action {
                 action.Activate();
             }
             action.Process();
+            if (action.Status == ActionEnum.STATUS_ONHOLD) {
+                Action nextAction = NextAction();
+                if (nextAction.Status == ActionEnum.STATUS_INACTIVE) {
+                    nextAction.Activate();
+                }
+                nextAction.Process();
+            }
             if (action.Status == ActionEnum.STATUS_COMPLETED || action.Status == ActionEnum.STATUS_FAILED) {
                 RemoveAction();
             }

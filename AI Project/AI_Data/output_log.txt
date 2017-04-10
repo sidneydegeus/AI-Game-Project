@@ -1,0 +1,42 @@
+Initialize engine version: 5.5.2f1 (3829d7f588f3)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 760 (ID=0x1187)
+    Vendor:   NVIDIA
+    VRAM:     1989 MB
+    Driver:   21.21.13.7633
+Begin MonoManager ReloadAssembly
+Platform assembly: D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.021 seconds
+Platform assembly: D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\Users\Sidney\Documents\AI-Game-Project\AI Project\AI_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1200 59Hz; virtual: 3200x1200 at -1280,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.021654 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: a90 -> priority: 1 
+  Thread -> id: 15d0 -> priority: 1 
+No hit
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+No hit
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+No hit
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
