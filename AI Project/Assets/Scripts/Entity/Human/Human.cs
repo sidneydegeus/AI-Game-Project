@@ -32,7 +32,7 @@ public class Human : MovingEntity {
     float removeLastHitBy = 10.0f;
 
 
-    GameObject projectilePrefab;
+    public GameObject projectilePrefab;
 
     [HideInInspector]
     public List<string> ActionDescriptionList;
@@ -50,7 +50,6 @@ public class Human : MovingEntity {
         Think = new Think(this);
         SetHumanValues();
         Selected = false;
-        projectilePrefab = Resources.Load("projectile") as GameObject;
         DisplayFovToggle = true;
 
         StartCoroutine("FindTargetsWithDelay", 2);
@@ -75,6 +74,10 @@ public class Human : MovingEntity {
             DrawFieldOfView();
         } else {
             ClearViewMesh();
+        }
+
+        if (Selected && DisplayPathfindToggle) {
+            DisplayWaypoints();
         }
     }
 

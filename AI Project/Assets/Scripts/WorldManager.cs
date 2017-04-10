@@ -42,6 +42,7 @@ public class WorldManager : MonoBehaviour {
         ResetFieldButton.onClick.AddListener(ResetField);
         MusicToggle.onValueChanged.AddListener(ToggleMusic);
         DisplayHumanFovToggle.onValueChanged.AddListener(ToggleFov);
+        DisplayHumanPathfindToggle.onValueChanged.AddListener(TogglePathfinding);
         thinkingTextHolder = GameObject.Find("Thinking");
         StartCoroutine(SpawnHuman());
     }
@@ -134,6 +135,15 @@ public class WorldManager : MonoBehaviour {
         }
         else {
             selectedHuman.DisplayFovToggle = false;
+        }
+    }
+
+    void TogglePathfinding(bool value) {
+        if (value) {
+            selectedHuman.DisplayPathfindToggle = true;
+        }
+        else {
+            selectedHuman.DisplayPathfindToggle = false;
         }
     }
 

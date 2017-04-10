@@ -13,6 +13,9 @@ public partial class MovingEntity : BaseEntity {
     public float turnDst = 3;
     public float stoppingDst = 10;
 
+    public GameObject lineRenderer;
+    public GameObject waypointPrefab;
+
     float speedPercent = 1;
     Path path;
     bool wanderSuccess = true;
@@ -25,7 +28,7 @@ public partial class MovingEntity : BaseEntity {
     [Range(2, 15)]
     public float WanderDistance;
 
-
+    List<GameObject> waypointBlocks = new List<GameObject>();
 
     //protected IEnumerator UpdatePath()
     //{
@@ -53,6 +56,25 @@ public partial class MovingEntity : BaseEntity {
 
     public ActionEnum WanderStatus() {
         return wanderSuccess ? ActionEnum.STATUS_ACTIVE : ActionEnum.STATUS_FAILED;
+    }
+
+    protected void DisplayWaypoints() {
+        foreach (GameObject go in waypointBlocks) {
+            Destroy(go);
+        }
+        GameObject prevWaypoint = Instantiate(waypointPrefab, path.lookPoints[0], Quaternion.identity) as GameObject;
+        waypointBlocks.Add(prevWaypoint);
+        //lineRenderer.GetComponent<LineRenderer>().SetPosition(0, transform.position);
+        //lineRenderer.GetComponent<LineRenderer>().SetPosition(1, prevWaypoint.transform.position);
+        for (int i = 1; i < path.lookPoints.Length; i++) {
+            GameObject lineRend = Instantiate(waypointPrefab, path.lookPoints[i], Quaternion.identity) as GameObject;
+            GameObject wayp = Instantiate(waypointPrefab, path.lookPoints[i], Quaternion.identity) as GameObject;
+            //lineRenderer.GetComponent<LineRenderer>().SetPosition(0, prevWaypoint.transform.position);
+            //lineRenderer.GetComponent<LineRenderer>().SetPosition(1, wayp.transform.position);
+            waypointBlocks.Add(wayp);
+            Destroy(prevWaypoint);
+            prevWaypoint = wayp;
+        } 
     }
 
     public void OnDrawGizmos() {
