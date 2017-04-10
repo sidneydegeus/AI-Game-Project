@@ -25,7 +25,7 @@ public class FuzzyVariable
     public FuzzySet AddTriangular(string m_dString, double minBound, double maxBound, double peak)
     {
         FuzzySet_Triangle leftShoulder = new FuzzySet_Triangle(m_dString, minBound, maxBound, peak);
-        memberSets.Add(m_dString, leftShoulder);
+        //memberSets.Add(m_dString, leftShoulder);
 
         return leftShoulder;
     }
@@ -33,7 +33,7 @@ public class FuzzyVariable
     public FuzzySet AddRightShoulderSet(string m_dString, double minBound, double maxBound, double peak)
     {
         FuzzySet_RightShoulder rightShoulder = new FuzzySet_RightShoulder(m_dString, minBound, maxBound, peak);
-        memberSets.Add(m_dString, rightShoulder);
+        //memberSets.Add(m_dString, rightShoulder);
 
         return rightShoulder;
     }
@@ -41,7 +41,7 @@ public class FuzzyVariable
     public FuzzySet AddLeftShoulderSet(string m_dString, double minBound, double maxBound, double peak)
     {
         FuzzySet_LeftShoulder leftShoulder = new FuzzySet_LeftShoulder(m_dString, minBound, maxBound, peak);
-        memberSets.Add(m_dString, leftShoulder);
+        //memberSets.Add(m_dString, leftShoulder);
 
         return leftShoulder;
     }

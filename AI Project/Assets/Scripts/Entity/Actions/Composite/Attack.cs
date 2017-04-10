@@ -15,7 +15,9 @@ class Attack : ActionGroup {
     }
 
     protected override void AdditionalProcess() {
-
+        if (entity.LockedTarget == null) {
+            Terminate();
+        }
     }
 }
 

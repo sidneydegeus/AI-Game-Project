@@ -21,20 +21,21 @@ public class Think : ActionGroup {
     protected void AdditionalProcess() {
 
         // whenever there is nothing else to do, go wander
-        //if (ActionListCount() == 0) {
-        //    AddAction(new Wander(entity));
-        //}
-
-        //Action action = CurrentAction();
-        //if (entity.Hunger > 5 && action.GetType() != typeof(GoingToEat) && entity.Money >= 50) {
-        //    AddAction(new GoingToEat(entity));
-        //} else if (entity.Hunger > 5 && action.GetType() != typeof(GetMoney) && entity.Money < 50) {
-        //    AddAction(new GetMoney(entity));
-        //}
         if (ActionListCount() == 0) {
+            AddAction(new Wander(entity));
+        }
+
+        Action action = CurrentAction();
+        if (entity.Hunger > 15 && action.GetType() != typeof(GoingToEat) && entity.Money >= 50) {
+            AddAction(new GoingToEat(entity));
+        }
+        else if (entity.Hunger > 15 && action.GetType() != typeof(GetMoney) && entity.Money < 50 && action.GetType() != typeof(GoingToEat)) {
             AddAction(new GetMoney(entity));
         }
-        
+        //if (ActionListCount() == 0) {
+        //    AddAction(new GetMoney(entity));
+        //}
+
     }
 
 

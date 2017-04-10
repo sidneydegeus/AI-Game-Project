@@ -16,6 +16,12 @@ class GetMoney : ActionGroup {
     }
 
     protected override void AdditionalProcess() {
+        //if (entity.Money > 100) {
+        //    Status = ActionEnum.STATUS_COMPLETED;
+        //} else {
+            
+        //}
+
         if (entity.visibleTargets.Count == 0) {
             entity.LockedTarget = null;
             if (ActionListCount() != 0) {
@@ -28,7 +34,8 @@ class GetMoney : ActionGroup {
         if (entity.LockedTarget != null) {
             if (ActionListCount() == 0) {
                 AddAction(new Attack(entity));
-            } else if (renewAttack == 0) {
+            }
+            else if (renewAttack == 0) {
                 RemoveAction();
                 AddAction(new Attack(entity));
                 renewAttack = 1.0f;

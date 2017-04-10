@@ -38,7 +38,7 @@ public class CameraScript : MonoBehaviour {
 
     void zoomCamera() {
         if (Input.GetKey("x")) {
-            if (cameraPosition.y >= 30.0f)
+            if (cameraPosition.y >= 20.0f)
                 cameraPosition.y -= CameraMoveSpeed;
         }
         if (Input.GetKey("z")) {

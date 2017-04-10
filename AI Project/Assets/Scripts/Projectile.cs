@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
+    public Human Owner;
+
     void Awake() {
         Destroy(gameObject, 3.0f);
     }
@@ -12,6 +14,7 @@ public class Projectile : MonoBehaviour {
         if (collision.gameObject.tag == "Human") {
             Human human = collision.gameObject.GetComponentInParent<Human>();
             human.Health -= 10;
+            human.LastHitBy = Owner;
             Destroy(gameObject);
             Debug.Log("hitting a human");
         }

@@ -20,7 +20,8 @@ public class FuzzySet_Triangle : FuzzySet
 
     public override double CalculateDOM(double value)
     {
-        if(maxBound == peak)
+        //if(maxBound == peak)
+        return 0;
     }
 
     public override void ClearDOM()

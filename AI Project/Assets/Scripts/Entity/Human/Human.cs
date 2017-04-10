@@ -27,6 +27,11 @@ public class Human : MovingEntity {
     public int Money;
     public int Health;
 
+    [HideInInspector]
+    public Human LastHitBy;
+    float removeLastHitBy = 10.0f;
+
+
     GameObject projectilePrefab;
 
     [HideInInspector]
@@ -56,6 +61,13 @@ public class Human : MovingEntity {
         if (Health <= 0) {
             Destroy(gameObject);
         }
+        if (removeLastHitBy <= 0.00f) {
+            LastHitBy = null;
+            removeLastHitBy = 10.0f;
+        }
+        if (LastHitBy != null) {
+            removeLastHitBy -= Time.deltaTime;
+        }
         Think.Process();         
         // maybe some physics calculation here to reduce health upon hit?
 
@@ -67,6 +79,9 @@ public class Human : MovingEntity {
     }
 
     void OnDestroy() {
+        if (LastHitBy != null) {
+            LastHitBy.Money += 500;
+        }
         Think.Terminate();
         StopCoroutine(Tick());
         if (humanBehaviour.GetType() == typeof(GoodHumanBehaviour)) {
@@ -79,6 +94,7 @@ public class Human : MovingEntity {
 
     public void ShootProjectile(Transform target) {
         GameObject tempProjectile = Instantiate(projectilePrefab) as GameObject;
+        tempProjectile.GetComponent<Projectile>().Owner = this;
         Vector3 targetDirection = transform.position;
         targetDirection.y += 0.5f;
         tempProjectile.transform.position = targetDirection + transform.forward;
@@ -88,8 +104,8 @@ public class Human : MovingEntity {
     }
 
     void SetHumanValues() {
-        System.Random r = new System.Random();
-        Money = r.Next(125, 250);
+        //System.Random r = new System.Random();
+        Money = 0;
         Hunger = 0;
         Health = 100;
     }

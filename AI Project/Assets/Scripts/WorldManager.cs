@@ -11,8 +11,8 @@ public class WorldManager : MonoBehaviour {
     public Human prefabMan;
 
     public Text HumanCountText;
-    public Text GoodHumanCountText;
-    public Text BadHumanCountText;
+    //public Text GoodHumanCountText;
+    //public Text BadHumanCountText;
 
     public Text HumanSelectedText;
     public Text HumanBehaviourText;
@@ -43,7 +43,7 @@ public class WorldManager : MonoBehaviour {
         MusicToggle.onValueChanged.AddListener(ToggleMusic);
         DisplayHumanFovToggle.onValueChanged.AddListener(ToggleFov);
         thinkingTextHolder = GameObject.Find("Thinking");
-        //StartCoroutine(SpawnHuman());
+        StartCoroutine(SpawnHuman());
     }
 
     void Update() {
@@ -90,7 +90,7 @@ public class WorldManager : MonoBehaviour {
 
     IEnumerator SpawnHuman() {
         while (true) {
-            if (GoodHumanCount + BadHumanCount < 10) { 
+            if (GoodHumanCount + BadHumanCount < 15) { 
                 AddHuman();
             }
             yield return new WaitForSeconds(5.0f);
@@ -139,8 +139,8 @@ public class WorldManager : MonoBehaviour {
 
     void UpdateGUI() {
         HumanCountText.text = (GoodHumanCount + BadHumanCount).ToString();
-        GoodHumanCountText.text = GoodHumanCount.ToString();
-        BadHumanCountText.text = BadHumanCount.ToString();
+        //GoodHumanCountText.text = GoodHumanCount.ToString();
+        //BadHumanCountText.text = BadHumanCount.ToString();
 
         if (selectedHuman != null) {
             HumanSelectedText.text = "Yes";
