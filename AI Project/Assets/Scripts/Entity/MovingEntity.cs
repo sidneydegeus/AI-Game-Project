@@ -13,7 +13,7 @@ public partial class MovingEntity : BaseEntity {
     public float turnDst = 3;
     public float stoppingDst = 10;
 
-    public GameObject lineRenderer;
+    public LineRenderer lineRenderer;
     public GameObject waypointPrefab;
 
     float speedPercent = 1;
@@ -71,6 +71,7 @@ public partial class MovingEntity : BaseEntity {
             GameObject wayp = Instantiate(waypointPrefab, path.lookPoints[i], Quaternion.identity) as GameObject;
             //lineRenderer.GetComponent<LineRenderer>().SetPosition(0, prevWaypoint.transform.position);
             //lineRenderer.GetComponent<LineRenderer>().SetPosition(1, wayp.transform.position);
+
             waypointBlocks.Add(wayp);
             Destroy(prevWaypoint);
             prevWaypoint = wayp;

@@ -8,9 +8,11 @@ partial class MovingEntity {
     public class FollowPathBehaviour : ISteeringBehaviour {
 
         MovingEntity entity;
+        Vector3 target;
 
         public FollowPathBehaviour(MovingEntity _entity, Vector3 target) {
             entity = _entity;
+            this.target = target;
             RequestPathToTarget(target);
         }
 
@@ -32,7 +34,17 @@ partial class MovingEntity {
             }
         }
 
+        public void lineOnScreen()
+        {
+            Material whiteDiffuseMat = new Material(Shader.Find("Unlit/Texture"));
+            entity.lineRenderer.material = whiteDiffuseMat;
+            entity.lineRenderer.SetPosition(0, entity.transform.position);
+            entity.lineRenderer.SetPosition(1, target);
+        }
+
         public ActionEnum Execute() {
+            lineOnScreen();
+
             bool followingPath = true;
             int pathIndex = 0;
             //    transform.LookAt(path.lookPoints[0]);

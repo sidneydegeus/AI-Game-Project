@@ -6,6 +6,7 @@ using System;
 public class Pathfinding : MonoBehaviour {
 
     Grid grid;
+    public LineRenderer line;
 
     void Awake() {
         grid = GetComponent<Grid>();
