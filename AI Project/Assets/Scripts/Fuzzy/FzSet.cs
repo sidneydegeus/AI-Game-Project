@@ -5,23 +5,37 @@ using UnityEngine;
 
 public class FzSet : FuzzyTerm
 {
-    public override double CalculateDOM(double value)
+    FuzzySet set;
+
+    public FzSet() { }
+
+    public FzSet(FuzzySet _set)
     {
-        throw new NotImplementedException();
+        set = _set;
     }
 
-    public override void ClearDOM()
+    public void ClearDOM()
     {
-        throw new NotImplementedException();
+        set.ClearDOM();
     }
 
-    public override double GetDOM()
+    public FuzzyTerm Clone()
     {
-        throw new NotImplementedException();
+        return null;
     }
 
-    public override void ORwithDOM(double value)
+    public double GetDOM()
     {
-        throw new NotImplementedException();
+        return set.GetDOM();
+    }
+
+    public void ORwithDOM(double value)
+    {
+        set.ORwithDOM(value);
+    }
+
+    public FuzzySet GetSet()
+    {
+        return set;
     }
 }

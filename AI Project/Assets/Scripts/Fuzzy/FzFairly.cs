@@ -5,23 +5,30 @@ using UnityEngine;
 
 public class FzFairly : FuzzyTerm
 {
-    public override double CalculateDOM(double value)
+    private FuzzySet set;
+
+    public FzFairly(FzSet _set)
     {
-        throw new NotImplementedException();
+        set = _set.GetSet();
     }
 
-    public override void ClearDOM()
+    public void ClearDOM()
     {
-        throw new NotImplementedException();
+        set.ClearDOM();
     }
 
-    public override double GetDOM()
+    public FuzzyTerm Clone()
     {
-        throw new NotImplementedException();
+        return this; ;
     }
 
-    public override void ORwithDOM(double value)
+    public double GetDOM()
     {
-        throw new NotImplementedException();
+        return Math.Sqrt(set.GetDOM());
+    }
+
+    public void ORwithDOM(double value)
+    {
+        set.ORwithDOM(Math.Sqrt(value));
     }
 }

@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class FuzzyTerm
+public interface FuzzyTerm
 {
-    public abstract double GetDOM();
-    public abstract void ClearDOM();
-    public abstract void ORwithDOM(double value);
-    public abstract double CalculateDOM(double value);
+    FuzzyTerm Clone();
+    double GetDOM();
+    void ClearDOM();
+    void ORwithDOM(double value);
 }

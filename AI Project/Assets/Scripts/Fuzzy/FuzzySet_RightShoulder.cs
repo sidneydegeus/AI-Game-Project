@@ -5,43 +5,31 @@ using UnityEngine;
 
 public class FuzzySet_RightShoulder : FuzzySet
 {
-    private double maxBound;
-    private double minBound;
-    private string m_dString;
-    private double peak;
-    private double DOM = 0.0;
+    private double peak, leftOffset, rightOffset;
 
-    public FuzzySet_RightShoulder(string m_dString, double minBound, double maxBound, double peak)
+    public FuzzySet_RightShoulder(double _peak, double _leftOffset, double _rightOffset)
     {
-        this.m_dString = m_dString;
-        this.minBound = minBound;
-        this.maxBound = maxBound;
-        this.peak = peak;
+        peak = _peak;
+        leftOffset = _leftOffset;
+        rightOffset = _rightOffset;
     }
 
-    public override double CalculateDOM(double value)
+    public new double CalculateDOM(double value)
     {
-        if (value <= minBound)
-            return DOM;
-        if (value >= peak)
-            return DOM = 1.0;
+        if (((rightOffset == 0.0) && ((peak == value))) || ((leftOffset == 0.0) && ((peak == value))))
+            return 1.0;
 
-        DOM = 1 / Math.Abs(minBound - peak) * Math.Abs(minBound - value);
-        return DOM;
-    }
+        //find DOM if left of center
+        else if ((value <= peak) && (value > (peak - leftOffset)))
+        {
+            double grad = 1.0 / leftOffset;
 
-    public override void ClearDOM()
-    {
-        DOM = 0.0;
-    }
-
-    public override double GetDOM()
-    {
-        return DOM;
-    }
-
-    public override void ORwithDOM(double value)
-    {
-        throw new NotImplementedException();
+            return grad * (value - (peak - leftOffset));
+        }
+        //find DOM if right of center and less than center + right offset
+        else if ((value > peak) && (value <= (peak + rightOffset)))
+            return 1.0;
+        else
+            return 0;
     }
 }

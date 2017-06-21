@@ -5,23 +5,22 @@ using UnityEngine;
 
 public class FuzzySet_Singleton : FuzzySet
 {
-    public override double CalculateDOM(double value)
+    private double midPoint, leftOffset, rightOffset;
+
+    public FuzzySet_Singleton(double _midPoint, double _leftOffset, double _rightOffset)
     {
-        throw new NotImplementedException();
+        midPoint = _midPoint;
+        leftOffset = _leftOffset;
+        rightOffset = _rightOffset;
     }
 
-    public override void ClearDOM()
+    public new double CalculateDOM(double value)
     {
-        throw new NotImplementedException();
-    }
+        if ((value >= midPoint - leftOffset) && (value <= midPoint + rightOffset))
+            return 1.0;
 
-    public override double GetDOM()
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void ORwithDOM(double value)
-    {
-        throw new NotImplementedException();
+        //out of range of this FLV, return zero
+        else
+            return 0.0;
     }
 }

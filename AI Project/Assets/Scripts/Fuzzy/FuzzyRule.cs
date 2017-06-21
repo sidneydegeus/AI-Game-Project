@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class FuzzyRule
 {
-    public FuzzyTerm m_pAntescedent;
-    public FuzzyTerm m_pConsequent;
+    private FuzzyTerm m_pAntecedent;
+    private FuzzyTerm m_pConsequent;
 
-    public FuzzyRule(FuzzyTerm _m_pAntescedent, FuzzyTerm _m_pConsequent)
+    public FuzzyRule(FuzzyTerm _m_pAntecedent, FuzzyTerm _m_pConsequent)
     {
-        m_pAntescedent = _m_pAntescedent;
+        m_pAntecedent = _m_pAntecedent;
         m_pConsequent = _m_pConsequent;
+    }
+
+    public void SetConfidenceOfConsequentToZero()
+    {
+        m_pConsequent.ClearDOM();
     }
 
     public void Calculate()
     {
-        m_pConsequent.ORwithDOM(m_pAntescedent.GetDOM());
+        m_pConsequent.ORwithDOM(m_pAntecedent.GetDOM());
     }
 }

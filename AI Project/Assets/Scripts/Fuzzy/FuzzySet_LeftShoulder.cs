@@ -5,43 +5,34 @@ using UnityEngine;
 
 public class FuzzySet_LeftShoulder : FuzzySet
 {
-    private double maxBound;
-    private double minBound;
-    private string m_dString;
-    private double peak;
-    private double DOM = 0.0;
+    private double peak, leftOffset, rightOffset;
 
-    public FuzzySet_LeftShoulder(string m_dString, double minBound, double maxBound, double peak)
+    public FuzzySet_LeftShoulder(double _peak, double _leftOffset, double _rightOffset)
     {
-        this.m_dString = m_dString;
-        this.minBound = minBound;
-        this.maxBound = maxBound;
-        this.peak = peak;
+        peak = _peak;
+        leftOffset = _leftOffset;
+        rightOffset = _rightOffset;
     }
 
-    public override double CalculateDOM(double value)
+    public new double CalculateDOM(double value)
     {
-        if (value >= maxBound)
-            return DOM;
-        if (value <= peak)
-            return DOM = 1.0;
+        if (((rightOffset == 0.0) && ((peak == value))) || ((leftOffset == 0.0) && ((peak == value))))
+            return 1.0;
 
-        DOM = 1 / Math.Abs(maxBound - peak) * Math.Abs(maxBound - value);
-        return DOM;
-    }
+        //find DOM if right of center
+        else if ((value >= peak) && (value < (peak + rightOffset)))
+        {
+            double grad = 1.0 / -rightOffset;
 
-    public override void ClearDOM()
-    {
-        DOM = 0.0;
-    }
+            return grad * (value - peak) + 1.0;
+        }
 
-    public override double GetDOM()
-    {
-        return DOM;
-    }
+        //find DOM if left of center
+        else if ((value < peak) && value >= (peak - leftOffset))
+            return 1.0;
 
-    public override void ORwithDOM(double value)
-    {
-        throw new NotImplementedException();
+        //out of range of this FLV, return zero
+        else
+            return 0.0;
     }
 }

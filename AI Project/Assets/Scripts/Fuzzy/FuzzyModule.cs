@@ -4,34 +4,53 @@ using UnityEngine;
 
 public class FuzzyModule
 {
-    public List<FuzzyRule> m_Rules = new List<FuzzyRule>();
-    public Dictionary<string, FuzzyVariable> m_Variables = new Dictionary<string, FuzzyVariable>();
+    public enum DefuzzifyMethod { MaxAv, Centroid };
 
-    public void RunRules()
+    private Dictionary<string, FuzzyVariable> m_Variables = new Dictionary<string, FuzzyVariable>();
+    private List<FuzzyRule> m_Rules = new List<FuzzyRule>();
+    private int numberOfSamples = 15;
+
+    public FuzzyVariable CreateFLV(string m_Name)
     {
-        
+        FuzzyVariable newVariable = new FuzzyVariable();
+        m_Variables.Add(m_Name, newVariable);
+        return newVariable;
     }
 
-    public FuzzyVariable CreateFLV(string VarName)
+    public void AddRule(FuzzyTerm m_pAntecedent, FuzzyTerm m_pConsequent)
     {
-        FuzzyVariable fv;
-        m_Variables.Add(VarName, new FuzzyVariable());
-        m_Variables.TryGetValue(VarName, out fv);
-        return fv;
+        m_Rules.Add(new FuzzyRule(m_pAntecedent, m_pConsequent));
+    }
+    
+    public void Fuzzify(string name, double val)
+    {
+        if (m_Variables.ContainsKey(name))
+            m_Variables[name].Fuzzify(val);
     }
 
-    public void AddRule(FuzzyTerm antecedent, FuzzyTerm consequence)
+    public double Defuzzify(string name, DefuzzifyMethod method)
     {
-        m_Rules.Add(new FuzzyRule(antecedent, consequence));
-    }
-
-    public void Fuzzify(string NameOfFLV, double val)
-    {
-        if (m_Variables.ContainsKey(NameOfFLV))
+        if (m_Variables.ContainsKey(name))
         {
-            FuzzyVariable f;
-            m_Variables.TryGetValue(NameOfFLV, out f);
-            f.Fuzzify(val);
+            SetConfidencesOfConsequentsToZero();
+
+            foreach (FuzzyRule rule in m_Rules)
+                rule.Calculate();
+
+            switch (method)
+            {
+                case DefuzzifyMethod.Centroid:
+                    return m_Variables[name].DefuzzifyCentroid(numberOfSamples);
+                case DefuzzifyMethod.MaxAv:
+                    return m_Variables[name].DefuzzifyMaxAv();
+            }
         }
+        return 0;
+    }
+
+    void SetConfidencesOfConsequentsToZero()
+    {
+        foreach (FuzzyRule rule in m_Rules)
+            rule.SetConfidenceOfConsequentToZero();
     }
 }

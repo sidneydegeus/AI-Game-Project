@@ -5,23 +5,65 @@ using UnityEngine;
 
 public class FzAND : FuzzyTerm
 {
-    public override double CalculateDOM(double value)
+    private List<FuzzyTerm> m_Terms;
+
+    public FzAND(FuzzyTerm op1)
     {
-        throw new NotImplementedException();
+        m_Terms.Add(op1);
     }
 
-    public override void ClearDOM()
+    public FzAND(FuzzyTerm op1, FuzzyTerm op2)
     {
-        throw new NotImplementedException();
+        m_Terms.Add(op1);
+        m_Terms.Add(op2);
     }
 
-    public override double GetDOM()
+    public FzAND(FuzzyTerm op1, FuzzyTerm op2, FuzzyTerm op3)
     {
-        throw new NotImplementedException();
+        m_Terms.Add(op1);
+        m_Terms.Add(op2);
+        m_Terms.Add(op3);
     }
 
-    public override void ORwithDOM(double value)
+    public FzAND(FuzzyTerm op1, FuzzyTerm op2, FuzzyTerm op3, FuzzyTerm op4)
     {
-        throw new NotImplementedException();
+        m_Terms.Add(op1);
+        m_Terms.Add(op2);
+        m_Terms.Add(op3);
+        m_Terms.Add(op4);
+    }
+
+    public void ClearDOM()
+    {
+        foreach (FuzzyTerm term in m_Terms)
+        {
+            term.ClearDOM();
+        }
+    }
+
+    public FuzzyTerm Clone()
+    {
+        return null;
+    }
+
+    public double GetDOM()
+    {
+        double smallest = double.MaxValue;
+
+        foreach (FuzzyTerm term in m_Terms)
+        {
+            if (term.GetDOM() < smallest)
+            {
+                smallest = term.GetDOM();
+            }
+        }
+        return smallest;
+
+    }
+
+    public void ORwithDOM(double value)
+    {
+        foreach (FuzzyTerm term in m_Terms)
+            term.ORwithDOM(value);
     }
 }
