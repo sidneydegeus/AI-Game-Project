@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class MovingEntity : BaseEntity {
+public class MovingEntity : BaseEntity {
 
     const float minPathUpdateTime = .2f;
     const float pathUpdateMoveThreshold = .5f;
 
-    public Transform target;
+    // make a target position too?
+    internal Vector3 TargetPosition;
+    public Transform Target;
     public float turnSpeed = 3;
     public float turnDst = 3;
     public float stoppingDst = 10;
@@ -16,19 +18,31 @@ public partial class MovingEntity : BaseEntity {
     public LineRenderer lineRenderer;
     public GameObject waypointPrefab;
 
-    float speedPercent = 1;
-    Path path;
-    bool wanderSuccess = true;
+    // internal so that behaviours can make use of it
+    internal Path path;
+    internal bool wanderSuccess = true;
+    internal float speedPercent = 1;
+
 
     [HideInInspector]
     public bool DisplayPathfindToggle;
 
     [Range(1,2)]
     public float Speed;
-    [Range(2, 15)]
-    public float WanderDistance;
+    [Range(10, 15)]
+    public float WanderRadius = 25;
+    //[Range(2, 15)]
+    //public float WanderDistance;
 
     List<GameObject> waypointBlocks = new List<GameObject>();
+
+    protected override void Start() {
+        base.Start();
+    }
+
+    protected override void Update() {
+        base.Update();
+    }
 
     //protected IEnumerator UpdatePath()
     //{

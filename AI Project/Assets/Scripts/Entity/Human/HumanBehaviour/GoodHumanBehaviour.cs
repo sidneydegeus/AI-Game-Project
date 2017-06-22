@@ -26,7 +26,7 @@ public class GoodHumanBehaviour : IHumanBehaviour {
     }
 
     public void Attack() {
-        human.ShootProjectile(human.LockedTarget);
+       // human.ShootProjectile(human.LockedTarget);
     }
 
     public void Eat() {

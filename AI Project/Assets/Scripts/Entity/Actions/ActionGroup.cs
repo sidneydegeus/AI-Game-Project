@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ActionGroup : Action {
-    
-    public ActionGroup(Human _entity) : base(_entity) {}
+
+    public ActionGroup() : base() {}
+    public ActionGroup(BaseEntity _entity) : base(_entity) { }
 
     override
     public void Activate() {
@@ -20,6 +21,11 @@ public abstract class ActionGroup : Action {
     override
     public ActionEnum Process() {
         AdditionalProcess();
+   //     Debug.Log("Pre process " + CurrentAction() + " " + CurrentAction().Status);
+        if (Status == ActionEnum.STATUS_FAILED) {
+            Terminate();
+            return Status;
+        }
 
         if (ActionListCount() > 0) {
             Action action = CurrentAction();
@@ -34,18 +40,16 @@ public abstract class ActionGroup : Action {
                 }
                 nextAction.Process();
             }
+    //        Debug.Log("post process " + CurrentAction() + " " + CurrentAction().Status);
             if (action.Status == ActionEnum.STATUS_COMPLETED || action.Status == ActionEnum.STATUS_FAILED) {
                 RemoveAction();
             }
-        } else {
+        }
+        else {
             this.Status = ActionEnum.STATUS_COMPLETED;
         }
 
-        if (Status == ActionEnum.STATUS_FAILED) {
-            Debug.Log("do i do this?");
-            Terminate();
-            return Status;
-        }
+
         return Status;
     }
 

@@ -43,38 +43,31 @@ public class Human : MovingEntity {
     [HideInInspector]
     public Think Think;
 
-    void Start() {
-        HumanBehaviour = new GoodHumanBehaviour(this);
+    protected override void Start() {
+        base.Start();
+        //thinkBehaviour = new ParasiteThinkBehaviour(this);
         ActionDescriptionList = new List<string>();
-        Inventory = new List<Item>();
-        Think = new Think(this);
-        SetHumanValues();
-        Selected = false;
-        DisplayFovToggle = true;
-
-        StartCoroutine("FindTargetsWithDelay", 2);
-        StartCoroutine(Tick());
     }
 
-    void Update() {
-        if (Health <= 0) {
-            Destroy(gameObject);
-        }
-        if (removeLastHitBy <= 0.00f) {
-            LastHitBy = null;
-            removeLastHitBy = 10.0f;
-        }
-        if (LastHitBy != null) {
-            removeLastHitBy -= Time.deltaTime;
-        }
-        Think.Process();         
-        // maybe some physics calculation here to reduce health upon hit?
+    protected override void Update() {
+        //if (Health <= 0) {
+        //    Destroy(gameObject);
+        //}
+        //if (removeLastHitBy <= 0.00f) {
+        //    LastHitBy = null;
+        //    removeLastHitBy = 10.0f;
+        //}
+        //if (LastHitBy != null) {
+        //    removeLastHitBy -= Time.deltaTime;
+        //}
+        //Think.Process();         
+        //// maybe some physics calculation here to reduce health upon hit?
 
-        if (Selected && DisplayFovToggle) {
-            DrawFieldOfView();
-        } else {
-            ClearViewMesh();
-        }
+        //if (Selected && DisplayFovToggle) {
+        //    DrawFieldOfView();
+        //} else {
+        //    ClearViewMesh();
+        //}
 
         if (Selected && DisplayPathfindToggle) {
             DisplayWaypoints();

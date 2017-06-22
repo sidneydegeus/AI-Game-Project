@@ -41,10 +41,10 @@ public class WorldManager : MonoBehaviour {
         AddHumanButton.onClick.AddListener(AddHuman);
         ResetFieldButton.onClick.AddListener(ResetField);
         MusicToggle.onValueChanged.AddListener(ToggleMusic);
-        DisplayHumanFovToggle.onValueChanged.AddListener(ToggleFov);
+        //DisplayHumanFovToggle.onValueChanged.AddListener(ToggleFov);
         DisplayHumanPathfindToggle.onValueChanged.AddListener(TogglePathfinding);
         thinkingTextHolder = GameObject.Find("Thinking");
-        StartCoroutine(SpawnHuman());
+        //StartCoroutine(SpawnHuman());
     }
 
     void Update() {
@@ -81,11 +81,11 @@ public class WorldManager : MonoBehaviour {
                 }
             }
 
-            if (Input.GetMouseButtonDown(1)) {
-                if (hit && selectedHuman != null) {
-                    selectedHuman.Think.AddAction(new FollowPath(selectedHuman, hitInfo.transform.position));
-                }
-            }
+            //if (Input.GetMouseButtonDown(1)) {
+            //    if (hit && selectedHuman != null) {
+            //        selectedHuman.Think.AddAction(new Followpath(selectedHuman, hitInfo.transform.position));
+            //    }
+            //}
         }
     }
 
@@ -129,14 +129,14 @@ public class WorldManager : MonoBehaviour {
         }
     }
 
-    void ToggleFov(bool value) {
-        if (value) {
-            selectedHuman.DisplayFovToggle = true;
-        }
-        else {
-            selectedHuman.DisplayFovToggle = false;
-        }
-    }
+    //void ToggleFov(bool value) {
+    //    if (value) {
+    //        selectedHuman.DisplayFovToggle = true;
+    //    }
+    //    else {
+    //        selectedHuman.DisplayFovToggle = false;
+    //    }
+    //}
 
     void TogglePathfinding(bool value) {
         if (value) {
@@ -163,7 +163,7 @@ public class WorldManager : MonoBehaviour {
                 text.text = "";
             }
             selectedHuman.ActionDescriptionList.Clear();
-            selectedHuman.Think.GetDescription();
+            //selectedHuman.Think.GetDescription();
             int i = 0;
             foreach (string description in selectedHuman.ActionDescriptionList) {
                 if (i < actionTextList.Count) {
