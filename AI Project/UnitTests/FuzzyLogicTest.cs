@@ -66,15 +66,19 @@ namespace UnitTests
             fuzzyModule.AddRule(new FzAND(Target_Far, Ammo_Okay), Desirable);
             fuzzyModule.AddRule(new FzAND(Target_Far, Ammo_Low), Undesirable);
 
-            double distance = 20;
-            double ammo = 40;
+            fuzzyModule.Fuzzify("DistanceToTarget", 200);
+            fuzzyModule.Fuzzify("AmmoStatus", 400);
 
-            fuzzyModule.Fuzzify("DistanceToTarget", distance);
-            fuzzyModule.Fuzzify("AmmoStatus", ammo);
+            double value = fuzzyModule.DeFuzzify("Desirability", FuzzyModule.DefuzzifyMethod.MaxAV);
 
-            double val = fuzzyModule.DeFuzzify("Desirability", FuzzyModule.DefuzzifyMethod.MaxAV);
+            Assert.Equal(12.5, value);
 
-            Assert.Equal(12.5, val);
+            fuzzyModule.Fuzzify("DistanceToTarget", 1000);
+            fuzzyModule.Fuzzify("AmmoStatus", 600);
+
+            value = fuzzyModule.DeFuzzify("Desirability", FuzzyModule.DefuzzifyMethod.MaxAV);
+
+            Assert.Equal(50, value);
         }
     }
 }
