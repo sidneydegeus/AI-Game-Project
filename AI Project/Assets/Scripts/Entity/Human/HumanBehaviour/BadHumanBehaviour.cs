@@ -10,7 +10,7 @@ public class BadHumanBehaviour : IHumanBehaviour {
     Human human;
 
     public BadHumanBehaviour() {
-        WorldManager.BadHumanCount++;
+       // WorldManager.BadHumanCount++;
         Description = "Bad";
     }
 

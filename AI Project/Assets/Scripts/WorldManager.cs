@@ -28,10 +28,9 @@ public class WorldManager : MonoBehaviour {
     public Button ResetFieldButton;
 
     //public static int HumanCount = 0;
-    public static int GoodHumanCount = 0;
-    public static int BadHumanCount = 0;
+    public static int HumanCount;
 
-    Human selectedHuman;
+    NewHuman selectedHuman;
     public List<Text> actionTextList;
     GameObject thinkingTextHolder;
 
@@ -41,9 +40,11 @@ public class WorldManager : MonoBehaviour {
         AddHumanButton.onClick.AddListener(AddHuman);
         ResetFieldButton.onClick.AddListener(ResetField);
         MusicToggle.onValueChanged.AddListener(ToggleMusic);
-        //DisplayHumanFovToggle.onValueChanged.AddListener(ToggleFov);
+        DisplayHumanFovToggle.onValueChanged.AddListener(ToggleFov);
         DisplayHumanPathfindToggle.onValueChanged.AddListener(TogglePathfinding);
         thinkingTextHolder = GameObject.Find("Thinking");
+        DisplayHumanFovToggle.isOn = false;
+        
         //StartCoroutine(SpawnHuman());
     }
 
@@ -61,11 +62,17 @@ public class WorldManager : MonoBehaviour {
                         if (selectedHuman != null) {
                             selectedHuman.Selected = false;
                         }
-                        selectedHuman = hitInfo.transform.gameObject.GetComponent<Human>();
+                        selectedHuman = hitInfo.transform.gameObject.GetComponent<NewHuman>();
                         selectedHuman.Selected = true;
+                        selectedHuman.fieldOfView.DisplayFieldOfView = true;
+                        DisplayHumanFovToggle.isOn = true;
+                        DisplayHumanFovToggle.enabled = true;
                     }
                     else {
+                        DisplayHumanFovToggle.enabled = false;
+                        DisplayHumanFovToggle.isOn = false;
                         if (selectedHuman != null) {
+                            selectedHuman.fieldOfView.DisplayFieldOfView = false;
                             selectedHuman.Selected = false;
                         }
                         selectedHuman = null;
@@ -81,17 +88,21 @@ public class WorldManager : MonoBehaviour {
                 }
             }
 
-            //if (Input.GetMouseButtonDown(1)) {
-            //    if (hit && selectedHuman != null) {
-            //        selectedHuman.Think.AddAction(new Followpath(selectedHuman, hitInfo.transform.position));
-            //    }
-            //}
+            if (Input.GetMouseButtonDown(1)) {
+                if (hit && selectedHuman != null) {
+                    if (selectedHuman.Think.CurrentAction().GetType() == typeof(FollowpathAction)) {
+                        selectedHuman.Think.RemoveAction();
+                    }
+                    selectedHuman.Think.AddAction(new FollowpathAction(selectedHuman));
+                    selectedHuman.TargetPosition = hitInfo.point;
+                }
+            }
         }
     }
 
     IEnumerator SpawnHuman() {
         while (true) {
-            if (GoodHumanCount + BadHumanCount < 15) { 
+            if (HumanCount < 15) { 
                 AddHuman();
             }
             yield return new WaitForSeconds(5.0f);
@@ -129,14 +140,14 @@ public class WorldManager : MonoBehaviour {
         }
     }
 
-    //void ToggleFov(bool value) {
-    //    if (value) {
-    //        selectedHuman.DisplayFovToggle = true;
-    //    }
-    //    else {
-    //        selectedHuman.DisplayFovToggle = false;
-    //    }
-    //}
+    void ToggleFov(bool value) {
+        if (value) {
+            selectedHuman.fieldOfView.DisplayFieldOfView = true;
+        }
+        else {
+            selectedHuman.fieldOfView.DisplayFieldOfView = false;
+        }
+    }
 
     void TogglePathfinding(bool value) {
         if (value) {
@@ -148,22 +159,22 @@ public class WorldManager : MonoBehaviour {
     }
 
     void UpdateGUI() {
-        HumanCountText.text = (GoodHumanCount + BadHumanCount).ToString();
+        HumanCountText.text = HumanCount.ToString();
         //GoodHumanCountText.text = GoodHumanCount.ToString();
         //BadHumanCountText.text = BadHumanCount.ToString();
 
         if (selectedHuman != null) {
             HumanSelectedText.text = "Yes";
-            HumanBehaviourText.text = selectedHuman.HumanBehaviour.Description;
-            HumanHealthText.text = selectedHuman.Health.ToString();
-            HumanHungerText.text = selectedHuman.Hunger.ToString();
-            HumanMoneyText.text = selectedHuman.Money.ToString();
+            //HumanBehaviourText.text = selectedHuman.HumanBehaviour.Description;
+            HumanHealthText.text = selectedHuman.Stats.Health.ToString();
+            HumanHungerText.text = selectedHuman.Stats.Hunger.ToString();
+            HumanMoneyText.text = selectedHuman.Stats.Money.ToString();
 
             foreach (Text text in actionTextList) {
                 text.text = "";
             }
             selectedHuman.ActionDescriptionList.Clear();
-            //selectedHuman.Think.GetDescription();
+            selectedHuman.Think.GetDescription();
             int i = 0;
             foreach (string description in selectedHuman.ActionDescriptionList) {
                 if (i < actionTextList.Count) {

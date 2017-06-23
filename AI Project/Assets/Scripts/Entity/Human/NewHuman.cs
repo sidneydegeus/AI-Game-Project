@@ -6,7 +6,7 @@ public class NewHuman : MovingEntity {
 
 	protected override void Start () {
         base.Start();
-
+        WorldManager.HumanCount++;
         thinkBehaviour = new HumanThinkBehaviour(this);
         entityBehaviours[BehaviourEnum.WANDER_BEHAVIOUR] = new WanderBehaviour(this);
         entityBehaviours[BehaviourEnum.FOLLOW_BEHAVIOUR] = new FollowpathBehaviour(this);
@@ -15,5 +15,9 @@ public class NewHuman : MovingEntity {
     // Update is called once per frame
     protected override void Update () {
         base.Update();
-	}
+
+        if (Selected && DisplayPathfindToggle) {
+            DisplayWaypoints();
+        }
+    }
 }

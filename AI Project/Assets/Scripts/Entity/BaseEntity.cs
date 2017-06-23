@@ -7,7 +7,7 @@ public class BaseEntity : MonoBehaviour {
     // Think and entity related behaviours... defined in concrete entity at Start method!
     internal IThinkBehaviour thinkBehaviour;
     internal Dictionary<BehaviourEnum, IEntityBehaviour> entityBehaviours;
-    internal Action think;
+    internal Action Think;
     internal Animator animator;
 
     // Field of view of the entity
@@ -39,14 +39,24 @@ public class BaseEntity : MonoBehaviour {
     //[HideInInspector]
     //public bool DisplayFovToggle;
 
+    internal EntityStats Stats;
+
+    [HideInInspector]
+    public List<string> ActionDescriptionList;
+
+    internal NewHuman LastHitBy;
+    float removeLastHitBy = 10.0f;
+
     protected virtual void Start() {
-        think = new Think(this);
+        Think = new Think(this);
         entityBehaviours = new Dictionary<BehaviourEnum, IEntityBehaviour>();
         animator = GetComponent<Animator>();
         fieldOfView = GetComponentInChildren<FieldOfView>();
+        Stats = new EntityStats();
+        ActionDescriptionList = new List<string>();
     }
 
     protected virtual void Update() {
-        think.Process();
+        Think.Process();
     }
 }

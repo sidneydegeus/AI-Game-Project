@@ -12,7 +12,11 @@ public abstract class Action {
 
     public abstract void Activate();
     public abstract ActionEnum Process();
-    public abstract void Terminate();
+    public virtual void Terminate() {
+        Status = ActionEnum.STATUS_CANCELED;
+    }
+
+    #region Action Constructors
 
     public Action() {
         Status = ActionEnum.STATUS_INACTIVE;
@@ -25,8 +29,17 @@ public abstract class Action {
         actionLinkedList = new LinkedList<Action>();
     }
 
+#endregion
+
     public void SetEntity(BaseEntity _entity) {
         entity = _entity;
+    }
+
+    public void GetDescription() {
+        entity.ActionDescriptionList.Add(Description);
+        foreach (Action action in actionLinkedList) {
+            action.GetDescription();
+        }
     }
 
     public void AddAction(Action action) {

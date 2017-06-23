@@ -15,6 +15,7 @@ public abstract class ActionGroup : Action {
 
     override
     public void Terminate() {
+        base.Terminate();
         actionLinkedList.Clear();
     }
 
@@ -41,7 +42,7 @@ public abstract class ActionGroup : Action {
                 nextAction.Process();
             }
     //        Debug.Log("post process " + CurrentAction() + " " + CurrentAction().Status);
-            if (action.Status == ActionEnum.STATUS_COMPLETED || action.Status == ActionEnum.STATUS_FAILED) {
+            if (action.Status == ActionEnum.STATUS_COMPLETED || action.Status == ActionEnum.STATUS_FAILED || action.Status == ActionEnum.STATUS_CANCELED) {
                 RemoveAction();
             }
         }

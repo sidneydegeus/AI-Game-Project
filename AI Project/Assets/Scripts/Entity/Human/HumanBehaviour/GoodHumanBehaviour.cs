@@ -10,7 +10,7 @@ public class GoodHumanBehaviour : IHumanBehaviour {
     Human human;
 
     public GoodHumanBehaviour(Human _human) {
-        WorldManager.GoodHumanCount++;
+        //WorldManager.GoodHumanCount++;
         human = _human;
         Description = "Good";
     }

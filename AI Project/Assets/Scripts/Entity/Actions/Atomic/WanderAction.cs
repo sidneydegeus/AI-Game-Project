@@ -16,9 +16,10 @@ public class WanderAction : Action {
         entity.entityBehaviours[BehaviourEnum.WANDER_BEHAVIOUR].Init();
     }
 
-    public override void Terminate() {
-        Debug.Log("Terminating action");
-    }
+    //public override void Terminate() {
+    //    Debug.Log("Terminating action");
+    //    Status = ActionEnum.STATUS_FAILED;
+    //}
 
     public override ActionEnum Process() {        
         Status = entity.entityBehaviours[BehaviourEnum.WANDER_BEHAVIOUR].Process();

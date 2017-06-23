@@ -11,14 +11,14 @@ public class Human : MovingEntity {
             return humanBehaviour;
         }
         set {
-            if (humanBehaviour != value && humanBehaviour != null) {
-                if (humanBehaviour.GetType() == typeof(GoodHumanBehaviour)) {
-                    WorldManager.GoodHumanCount--;
-                }
-                if (humanBehaviour.GetType() == typeof(BadHumanBehaviour)) {
-                    WorldManager.BadHumanCount--;
-                }
-            }
+            //if (humanBehaviour != value && humanBehaviour != null) {
+            //    if (humanBehaviour.GetType() == typeof(GoodHumanBehaviour)) {
+            //        WorldManager.GoodHumanCount--;
+            //    }
+            //    if (humanBehaviour.GetType() == typeof(BadHumanBehaviour)) {
+            //        WorldManager.BadHumanCount--;
+            //    }
+            //}
             humanBehaviour = value;
         }
    }
@@ -75,17 +75,17 @@ public class Human : MovingEntity {
     }
 
     void OnDestroy() {
-        if (LastHitBy != null) {
-            LastHitBy.Money += 500;
-        }
-        Think.Terminate();
-        StopCoroutine(Tick());
-        if (humanBehaviour.GetType() == typeof(GoodHumanBehaviour)) {
-            WorldManager.GoodHumanCount--;
-        }
-        if (humanBehaviour.GetType() == typeof(BadHumanBehaviour)) {
-            WorldManager.BadHumanCount--;
-        }
+        //if (LastHitBy != null) {
+        //    LastHitBy.Money += 500;
+        //}
+        //Think.Terminate();
+        //StopCoroutine(Tick());
+        //if (humanBehaviour.GetType() == typeof(GoodHumanBehaviour)) {
+        //    WorldManager.GoodHumanCount--;
+        //}
+        //if (humanBehaviour.GetType() == typeof(BadHumanBehaviour)) {
+        //    WorldManager.BadHumanCount--;
+        //}
     }
 
     public void ShootProjectile(Transform target) {

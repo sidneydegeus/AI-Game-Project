@@ -8,34 +8,33 @@ using UnityEngine;
 public class FollowpathAction : Action {
 
     bool running = false;
+    const float recalculatePathTimer = 0.5f;
+    float currentCooldown;
 
     public FollowpathAction() : base() { }
     public FollowpathAction(BaseEntity _entity) : base(_entity) {
         Description = "Following path (A)";
     }
 
-    public FollowpathAction(BaseEntity _entity, bool _running) : base(_entity) {
-        Description = "Following path (A)";
-        running = _running;
-    }
-
     public override void Activate() {
         Status = ActionEnum.STATUS_ACTIVE;
         entity.entityBehaviours[BehaviourEnum.FOLLOW_BEHAVIOUR].Init();
-        //entity.Running = running;
+        currentCooldown = recalculatePathTimer;
     }
 
     public override ActionEnum Process() {
+        currentCooldown -= Time.deltaTime;
+        if (currentCooldown <= 0.0f) {
+            Activate();
+        }
+
         Status = entity.entityBehaviours[BehaviourEnum.FOLLOW_BEHAVIOUR].Process();
-        //if (Status == ActionEnum.STATUS_COMPLETED) {
-        //    entity.animator.SetBool("Moving", false);
-        //    entity.Running = false;
-        //}
+
         return Status;
     }
 
     public override void Terminate() {
-        //Status = ActionEnum.STATUS_FAILED;
+        Status = ActionEnum.STATUS_FAILED;
     }
 }
 

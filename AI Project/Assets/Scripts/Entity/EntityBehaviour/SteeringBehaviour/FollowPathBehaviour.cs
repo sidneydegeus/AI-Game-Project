@@ -10,30 +10,7 @@ public class FollowpathBehaviour : SteeringBehaviour {
         entity = _entity;
     }
 
-    void RequestPathToTarget(Transform target) {
-        PathRequestManager.RequestPath(new PathRequest(entity.transform.position, target.position, OnPathFound));
-    }
-    void RequestPathToTarget(Vector3 target) {
-        PathRequestManager.RequestPath(new PathRequest(entity.transform.position, target, OnPathFound));
-    }
-
-    public void OnPathFound(Vector3[] waypoints, bool pathSuccessful) {
-        if (pathSuccessful) {
-            entity.path = new Path(waypoints, entity.transform.position, entity.turnDst, entity.stoppingDst);
-            entity.wanderSuccess = true;
-        }
-        else {
-            entity.wanderSuccess = false;
-            //Status = ActionEnum.STATUS_FAILED;
-        }
-    }
-
-    public void lineOnScreen() {
-        Material whiteDiffuseMat = new Material(Shader.Find("Unlit/Texture"));
-        entity.lineRenderer.material = whiteDiffuseMat;
-        entity.lineRenderer.SetPosition(0, entity.transform.position);
-        entity.lineRenderer.SetPosition(1, entity.Target.position);
-    }
+    #region SteeringBehaviour Implementation Init() / Process()
 
     public override void Init() {
         RequestPathToTarget(entity.TargetPosition);
@@ -73,6 +50,34 @@ public class FollowpathBehaviour : SteeringBehaviour {
         }
         return ActionEnum.STATUS_ACTIVE;
     }
+
+    #endregion
+
+    void RequestPathToTarget(Transform target) {
+        PathRequestManager.RequestPath(new PathRequest(entity.transform.position, target.position, OnPathFound));
+    }
+    void RequestPathToTarget(Vector3 target) {
+        PathRequestManager.RequestPath(new PathRequest(entity.transform.position, target, OnPathFound));
+    }
+
+    public void OnPathFound(Vector3[] waypoints, bool pathSuccessful) {
+        if (pathSuccessful) {
+            entity.path = new Path(waypoints, entity.transform.position, entity.turnDst, entity.stoppingDst);
+            entity.wanderSuccess = true;
+        }
+        else {
+            entity.wanderSuccess = false;
+            //Status = ActionEnum.STATUS_FAILED;
+        }
+    }
+
+    public void lineOnScreen() {
+        Material whiteDiffuseMat = new Material(Shader.Find("Unlit/Texture"));
+        entity.lineRenderer.material = whiteDiffuseMat;
+        entity.lineRenderer.SetPosition(0, entity.transform.position);
+        entity.lineRenderer.SetPosition(1, entity.Target.position);
+    }
+
 }
 
 
