@@ -1,34 +1,32 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class FzFairly : FuzzyTerm
-{
-    private FuzzySet set;
+public class FzFairly : FuzzyTerm {
 
-    public FzFairly(FzSet _set)
-    {
-        set = _set.GetSet();
-    }
+	private FuzzySet m_Set;
 
-    public void ClearDOM()
-    {
-        set.ClearDOM();
-    }
+	private FzFairly(FzFairly fzFairly) {
+		m_Set = fzFairly.m_Set;
+	}
 
-    public FuzzyTerm Clone()
-    {
-        return this; ;
-    }
+	public FzFairly (FzSet fzSet) {
+		m_Set = fzSet.m_Set.clone();
+	}
 
-    public double GetDOM()
-    {
-        return Math.Sqrt(set.GetDOM());
-    }
+	public override double GetDOM() {
+		return Mathf.Sqrt ((float)m_Set.GetDOM ());
+	}
 
-    public void ORwithDOM(double value)
-    {
-        set.ORwithDOM(Math.Sqrt(value));
-    }
+	public override FuzzyTerm Clone() {
+		return new FzFairly (this);
+	}
+
+	public override void ClearDOM() {
+		m_Set.ClearDOM ();
+	}
+
+	public override void ORwithDOM(double value) {
+		m_Set.ORwithDOM(Mathf.Sqrt ((float)value));
+	}
 }

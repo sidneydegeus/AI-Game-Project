@@ -1,69 +1,63 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class FzAND : FuzzyTerm
 {
-    private List<FuzzyTerm> m_Terms;
+    private IList<FuzzyTerm> m_Terms = new List<FuzzyTerm>(4);
 
-    public FzAND(FuzzyTerm op1)
+    public FzAND(FzAND fzAnd)
     {
-        m_Terms.Add(op1);
+        foreach (FuzzyTerm fuzzyTerm in fzAnd.m_Terms)
+            m_Terms.Add(fuzzyTerm.Clone());
     }
 
     public FzAND(FuzzyTerm op1, FuzzyTerm op2)
     {
-        m_Terms.Add(op1);
-        m_Terms.Add(op2);
+        m_Terms.Add(op1.Clone());
+        m_Terms.Add(op2.Clone());
     }
 
     public FzAND(FuzzyTerm op1, FuzzyTerm op2, FuzzyTerm op3)
     {
-        m_Terms.Add(op1);
-        m_Terms.Add(op2);
-        m_Terms.Add(op3);
+        m_Terms.Add(op1.Clone());
+        m_Terms.Add(op2.Clone());
+        m_Terms.Add(op3.Clone());
     }
 
     public FzAND(FuzzyTerm op1, FuzzyTerm op2, FuzzyTerm op3, FuzzyTerm op4)
     {
-        m_Terms.Add(op1);
-        m_Terms.Add(op2);
-        m_Terms.Add(op3);
-        m_Terms.Add(op4);
+        m_Terms.Add(op1.Clone());
+        m_Terms.Add(op2.Clone());
+        m_Terms.Add(op3.Clone());
+        m_Terms.Add(op4.Clone());
     }
 
-    public void ClearDOM()
+    public override FuzzyTerm Clone()
     {
-        foreach (FuzzyTerm term in m_Terms)
-        {
-            term.ClearDOM();
-        }
+        return new FzAND(this);
     }
 
-    public FuzzyTerm Clone()
-    {
-        return null;
-    }
-
-    public double GetDOM()
+    public override double GetDOM()
     {
         double smallest = double.MaxValue;
-
-        foreach (FuzzyTerm term in m_Terms)
+        foreach (FuzzyTerm fuzzyTerm in m_Terms)
         {
-            if (term.GetDOM() < smallest)
-            {
-                smallest = term.GetDOM();
-            }
+            if (fuzzyTerm.GetDOM() < smallest)
+                smallest = fuzzyTerm.GetDOM();
         }
         return smallest;
-
     }
 
-    public void ORwithDOM(double value)
+    public override void ClearDOM()
     {
-        foreach (FuzzyTerm term in m_Terms)
-            term.ORwithDOM(value);
+        foreach (FuzzyTerm fuzzyTerm in m_Terms)
+            fuzzyTerm.ClearDOM();
+    }
+
+    public override void ORwithDOM(double value)
+    {
+        foreach (FuzzyTerm fuzzyTerm in m_Terms)
+            fuzzyTerm.ORwithDOM(value);
     }
 }

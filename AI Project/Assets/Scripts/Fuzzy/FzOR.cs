@@ -1,51 +1,49 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class FzOR : FuzzyTerm
-{
-    List<FuzzyTerm> m_Terms;
+public class FzOR : FuzzyTerm {
 
-    public FzOR(FuzzyTerm op1, FuzzyTerm op2)
-    {
-        m_Terms.Add(op1);
-        m_Terms.Add(op2);
-    }
+	private IList<FuzzyTerm> m_Terms = new List<FuzzyTerm> (4);
 
-    public FzOR(FuzzyTerm op1, FuzzyTerm op2, FuzzyTerm op3)
-    {
-        m_Terms.Add(op1);
-        m_Terms.Add(op2);
-        m_Terms.Add(op3);
-    }
+	public FzOR(FzOR fzOr) {
+		foreach (FuzzyTerm fuzzyTerm in fzOr.m_Terms)
+			m_Terms.Add(fuzzyTerm.Clone ());
+	}
 
-    public FzOR(FuzzyTerm op1, FuzzyTerm op2, FuzzyTerm op3, FuzzyTerm op4)
-    {
-        m_Terms.Add(op1);
-        m_Terms.Add(op2);
-        m_Terms.Add(op3);
-        m_Terms.Add(op4);
-    }
+	public FzOR(FuzzyTerm op1, FuzzyTerm op2) {
+		m_Terms.Add(op1.Clone());
+		m_Terms.Add(op2.Clone());
+	}
+	
+	public FzOR(FuzzyTerm op1, FuzzyTerm op2, FuzzyTerm op3) {
+		m_Terms.Add(op1.Clone());
+		m_Terms.Add(op2.Clone());
+		m_Terms.Add(op3.Clone());
+	}
+	
+	public FzOR(FuzzyTerm op1, FuzzyTerm op2, FuzzyTerm op3, FuzzyTerm op4) {
+		m_Terms.Add(op1.Clone());
+		m_Terms.Add(op2.Clone());
+		m_Terms.Add(op3.Clone());
+		m_Terms.Add(op4.Clone());
+	}
+	
+	public override FuzzyTerm Clone() {
+		return new FzOR(this);
+	}
 
-    public void ClearDOM(){}
+	public override double GetDOM() {
+		double largest = float.MinValue;
 
-    public FuzzyTerm Clone() {
-        return null;
-    }
+		foreach (FuzzyTerm fuzzyTerm in m_Terms) {
+			if (fuzzyTerm.GetDOM() > largest)
+				largest = fuzzyTerm.GetDOM();
+		}
+		return largest;
+	}
 
-    public double GetDOM()
-    {
-        double largest = double.MinValue;
+	public override void ClearDOM() {}
 
-        foreach (FuzzyTerm term in m_Terms)
-        {
-            if (term.GetDOM() > largest)
-                largest = term.GetDOM();
-        }
-
-        return largest;
-    }
-
-    public void ORwithDOM(double value){}
+	public override void ORwithDOM(double val) {}
 }
