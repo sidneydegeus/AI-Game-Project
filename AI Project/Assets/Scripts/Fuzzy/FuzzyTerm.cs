@@ -1,12 +1,10 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public interface FuzzyTerm
+public abstract class FuzzyTerm
 {
-    FuzzyTerm Clone();
-    double GetDOM();
-    void ClearDOM();
-    void ORwithDOM(double value);
+    public abstract FuzzyTerm Clone();
+    public abstract double GetDOM();
+    public abstract void ClearDOM();
+    public abstract void ORwithDOM(double val);
 }

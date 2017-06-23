@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionTest.cs" />
+    <Compile Include="FuzzyLogicTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +73,10 @@
     <ProjectReference Include="..\AI Project.Editor.csproj">
       <Project>{68662642-e634-22a9-e7b9-f2244a4e2a2d}</Project>
       <Name>AI Project.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Assembly-CSharp.csproj">
+      <Project>{4336ce02-e26c-81ef-7ac5-a7e710412aa7}</Project>
+      <Name>Assembly-CSharp</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,56 +1,76 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+
 
 public class FuzzyModule
 {
-    public enum DefuzzifyMethod { MaxAv, Centroid };
+    Dictionary<string, FuzzyVariable> m_Variables = new Dictionary<string, FuzzyVariable>();
 
-    private Dictionary<string, FuzzyVariable> m_Variables = new Dictionary<string, FuzzyVariable>();
-    private List<FuzzyRule> m_Rules = new List<FuzzyRule>();
-    private int numberOfSamples = 15;
+    private IList<FuzzyRule> m_Rules = new List<FuzzyRule>();
 
-    public FuzzyVariable CreateFLV(string m_Name)
+    public static readonly int NumSamples = 15;
+
+    public enum DefuzzifyMethod
     {
-        FuzzyVariable newVariable = new FuzzyVariable();
-        m_Variables.Add(m_Name, newVariable);
-        return newVariable;
+        MaxAV,
+        Centroid
+    };
+
+    private void SetConfidencesOfConsequentsToZero()
+    {
+        foreach (FuzzyRule fuzzyRule in m_Rules)
+            fuzzyRule.SetConfidenceOfConsequentToZero();
     }
 
-    public void AddRule(FuzzyTerm m_pAntecedent, FuzzyTerm m_pConsequent)
+    public FuzzyVariable CreateFLV(string name)
     {
-        m_Rules.Add(new FuzzyRule(m_pAntecedent, m_pConsequent));
+        FuzzyVariable fuzzyVariable = new FuzzyVariable();
+        m_Variables.Add(name, fuzzyVariable);
+        m_Variables.TryGetValue(name, out fuzzyVariable);
+        return fuzzyVariable;
     }
-    
-    public void Fuzzify(string name, double val)
+
+    public void AddRule(FuzzyTerm antecedent, FuzzyTerm consequence)
+    {
+        m_Rules.Add(new FuzzyRule(antecedent, consequence));
+    }
+
+    public void Fuzzify(string name, double value)
     {
         if (m_Variables.ContainsKey(name))
-            m_Variables[name].Fuzzify(val);
+        {
+            FuzzyVariable fuzzyVariable;
+            m_Variables.TryGetValue(name, out fuzzyVariable);
+            fuzzyVariable.Fuzzify(value);
+        }
     }
 
-    public double Defuzzify(string name, DefuzzifyMethod method)
+    public double DeFuzzify(string name, DefuzzifyMethod method)
     {
         if (m_Variables.ContainsKey(name))
         {
             SetConfidencesOfConsequentsToZero();
 
-            foreach (FuzzyRule rule in m_Rules)
-                rule.Calculate();
+            foreach (FuzzyRule fuzzyRule in m_Rules)
+                fuzzyRule.Calculate();
 
             switch (method)
             {
                 case DefuzzifyMethod.Centroid:
-                    return m_Variables[name].DefuzzifyCentroid(numberOfSamples);
-                case DefuzzifyMethod.MaxAv:
-                    return m_Variables[name].DefuzzifyMaxAv();
+                    FuzzyVariable fuzzyVariable;
+                    m_Variables.TryGetValue(name, out fuzzyVariable);
+                    return fuzzyVariable.DefuzzifyCentroid(NumSamples);
+
+                case DefuzzifyMethod.MaxAV:
+                    FuzzyVariable fuzzyVariableMaxAv;
+                    m_Variables.TryGetValue(name, out fuzzyVariableMaxAv);
+                    return fuzzyVariableMaxAv.DeFuzzifyMaxAv();
             }
+            return 0.0f;
         }
-        return 0;
+        return 0.0f;
+
     }
 
-    void SetConfidencesOfConsequentsToZero()
-    {
-        foreach (FuzzyRule rule in m_Rules)
-            rule.SetConfidenceOfConsequentToZero();
-    }
 }

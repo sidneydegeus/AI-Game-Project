@@ -1,41 +1,39 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class FzSet : FuzzyTerm
 {
-    FuzzySet set;
+    public FuzzySet m_Set;
 
-    public FzSet() { }
-
-    public FzSet(FuzzySet _set)
+    public FzSet(FuzzySet fuzzySet)
     {
-        set = _set;
+        m_Set = fuzzySet;
     }
 
-    public void ClearDOM()
+    private FzSet(FzSet fzSet)
     {
-        set.ClearDOM();
+        m_Set = fzSet.m_Set;
     }
 
-    public FuzzyTerm Clone()
+    public override FuzzyTerm Clone()
     {
-        return null;
+        return (FuzzyTerm) new FzSet(this);
     }
 
-    public double GetDOM()
+    public override double GetDOM()
     {
-        return set.GetDOM();
+        return m_Set.GetDOM();
     }
 
-    public void ORwithDOM(double value)
+    public override void ClearDOM()
     {
-        set.ORwithDOM(value);
+        m_Set.ClearDOM();
     }
 
-    public FuzzySet GetSet()
+    public override void ORwithDOM(double value)
     {
-        return set;
+        m_Set.ORwithDOM(value);
     }
+
+
 }

@@ -1,25 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
 public class FuzzyRule
 {
-    private FuzzyTerm m_pAntecedent;
-    private FuzzyTerm m_pConsequent;
 
-    public FuzzyRule(FuzzyTerm _m_pAntecedent, FuzzyTerm _m_pConsequent)
+    private FuzzyTerm m_pAntecedent;
+    private FuzzyTerm m_pConsequence;
+
+    private FuzzyRule(FuzzyRule fuzzyRule) { }
+
+    public FuzzyRule(FuzzyTerm _m_pAntecedent, FuzzyTerm _m_pConsequence)
     {
-        m_pAntecedent = _m_pAntecedent;
-        m_pConsequent = _m_pConsequent;
+        m_pAntecedent = _m_pAntecedent.Clone();
+        m_pConsequence = _m_pConsequence.Clone();
     }
 
     public void SetConfidenceOfConsequentToZero()
     {
-        m_pConsequent.ClearDOM();
+        m_pConsequence.ClearDOM();
     }
 
     public void Calculate()
     {
-        m_pConsequent.ORwithDOM(m_pAntecedent.GetDOM());
+        m_pConsequence.ORwithDOM(m_pAntecedent.GetDOM());
+
     }
+
 }

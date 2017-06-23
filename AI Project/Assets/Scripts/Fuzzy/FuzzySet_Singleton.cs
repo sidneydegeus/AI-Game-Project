@@ -1,26 +1,24 @@
-﻿using System;
+﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class FuzzySet_Singleton : FuzzySet
 {
-    private double midPoint, leftOffset, rightOffset;
+    private double m_dMidPoint;
+    private double m_dLeftOffset;
+    private double m_dRightOffset;
 
-    public FuzzySet_Singleton(double _midPoint, double _leftOffset, double _rightOffset)
+    public FuzzySet_Singleton(double _m_dMidPoint, double _m_dLeftOffset, double _m_dRightOffset) : base(_m_dMidPoint)
     {
-        midPoint = _midPoint;
-        leftOffset = _leftOffset;
-        rightOffset = _rightOffset;
+        m_dMidPoint = _m_dMidPoint;
+        m_dLeftOffset = _m_dLeftOffset;
+        m_dRightOffset = _m_dRightOffset;
     }
 
-    public new double CalculateDOM(double value)
+    public override double CalculateDOM(double value)
     {
-        if ((value >= midPoint - leftOffset) && (value <= midPoint + rightOffset))
-            return 1.0;
-
-        //out of range of this FLV, return zero
+        if ((value >= m_dMidPoint - m_dLeftOffset) && (value <= m_dMidPoint + m_dRightOffset))
+            return 1.0d;
         else
-            return 0.0;
+            return 0.0d;
     }
 }
