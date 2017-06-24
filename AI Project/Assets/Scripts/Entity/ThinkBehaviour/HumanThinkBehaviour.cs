@@ -58,7 +58,7 @@ public class HumanThinkBehaviour : IThinkBehaviour {
             return human.Think.CurrentAction().GetType() != typeof(Defending) ? new Defending(human) : null;
         }
 
-        //Debug.Log("Fuzzy Logic Desirability: " + FuzzyGetDesirability(human.Stats.Hunger, human.Stats.Money));
+        Debug.Log("Fuzzy Logic Desirability: " + FuzzyGetDesirability(human.Stats.Hunger, human.Stats.Money));
 
         //if (human.Stats.Hunger > 5 && human.Stats.Money < 50) {
         if (FuzzyGetDesirability(human.Stats.Hunger, human.Stats.Money) > 85) {

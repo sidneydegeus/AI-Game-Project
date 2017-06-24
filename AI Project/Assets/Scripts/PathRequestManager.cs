@@ -6,7 +6,6 @@ using System.Threading;
 
 public class PathRequestManager : MonoBehaviour
 {
-
     Queue<PathResult> results = new Queue<PathResult>();
 
     static PathRequestManager instance;
@@ -49,9 +48,6 @@ public class PathRequestManager : MonoBehaviour
             results.Enqueue(result);
         }
     }
-
-
-
 }
 
 public struct PathResult
@@ -81,5 +77,4 @@ public struct PathRequest
         pathEnd = _end;
         callback = _callback;
     }
-
 }

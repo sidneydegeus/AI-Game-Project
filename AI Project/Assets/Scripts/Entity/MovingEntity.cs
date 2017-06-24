@@ -13,8 +13,8 @@ public abstract  class MovingEntity : BaseEntity {
     public float turnSpeed = 3;
     public float turnDst = 3;
     public float stoppingDst = 10;
-
     public LineRenderer lineRenderer;
+   
     public GameObject waypointPrefab;
 
     // internal so that behaviours can make use of it

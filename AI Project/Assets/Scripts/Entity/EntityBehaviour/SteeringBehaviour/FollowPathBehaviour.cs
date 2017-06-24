@@ -58,6 +58,8 @@ public class FollowpathBehaviour : SteeringBehaviour {
     }
     void RequestPathToTarget(Vector3 target) {
         PathRequestManager.RequestPath(new PathRequest(entity.transform.position, target, OnPathFound));
+        Debug.Log("Target: " + target);
+        lineOnScreen(target);
     }
 
     public void OnPathFound(Vector3[] waypoints, bool pathSuccessful) {
@@ -71,11 +73,11 @@ public class FollowpathBehaviour : SteeringBehaviour {
         }
     }
 
-    public void lineOnScreen() {
+    public void lineOnScreen(Vector3 target) {
         Material whiteDiffuseMat = new Material(Shader.Find("Unlit/Texture"));
         entity.lineRenderer.material = whiteDiffuseMat;
         entity.lineRenderer.SetPosition(0, entity.transform.position);
-        entity.lineRenderer.SetPosition(1, entity.Target.position);
+        entity.lineRenderer.SetPosition(1, target);
     }
 
 }

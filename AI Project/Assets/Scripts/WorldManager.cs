@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class WorldManager : MonoBehaviour {
 
     public GameObject[] spawners = new GameObject[4];
-    public NewHuman prefabWoman;
     public NewHuman prefabMan;
 
     public Text HumanCountText;
@@ -104,7 +103,7 @@ public class WorldManager : MonoBehaviour {
     IEnumerator SpawnHuman() {
         while (true) {
             if (HumanCount < 15) {
-                Debug.Log("adding human");
+                Debug.Log("Adding human");
                 AddHuman();
             }
             yield return new WaitForSeconds(5.0f);

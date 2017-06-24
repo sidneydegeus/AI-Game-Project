@@ -55,6 +55,19 @@ public class WanderBehaviour : SteeringBehaviour {
             entity.transform.position.y,
             entity.transform.position.z + randomZ
         );
+
+        while (targetPosition.x > 15.5 || targetPosition.x < -15.5)
+        {
+            randomX = UnityEngine.Random.Range(-entity.WanderRadius, entity.WanderRadius);
+            targetPosition.x = entity.transform.position.x + randomX;
+        }
+
+        while (targetPosition.z > 15.5 || targetPosition.z < -15.5)
+        {
+            randomZ = UnityEngine.Random.Range(-entity.WanderRadius, entity.WanderRadius);
+            targetPosition.z = entity.transform.position.z + randomZ;
+        }
+
         return targetPosition;
     }
 }

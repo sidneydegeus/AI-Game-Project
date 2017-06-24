@@ -6,7 +6,6 @@ using System;
 public class Pathfinding : MonoBehaviour {
 
     Grid grid;
-    public LineRenderer line;
 
     void Awake() {
         grid = GetComponent<Grid>();
@@ -14,7 +13,6 @@ public class Pathfinding : MonoBehaviour {
 
 
     public void FindPath(PathRequest request, Action<PathResult> callback) {
-
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;
 
