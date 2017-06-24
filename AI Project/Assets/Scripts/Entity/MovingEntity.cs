@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingEntity : BaseEntity {
+public abstract  class MovingEntity : BaseEntity {
 
     const float minPathUpdateTime = .2f;
     const float pathUpdateMoveThreshold = .5f;
 
     // make a target position too?
-    internal Vector3 TargetPosition;
-    public Transform Target;
+
     public float turnSpeed = 3;
     public float turnDst = 3;
     public float stoppingDst = 10;

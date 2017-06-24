@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class WorldManager : MonoBehaviour {
 
     public GameObject[] spawners = new GameObject[4];
-    public Human prefabWoman;
-    public Human prefabMan;
+    public NewHuman prefabWoman;
+    public NewHuman prefabMan;
 
     public Text HumanCountText;
     //public Text GoodHumanCountText;
@@ -36,6 +36,7 @@ public class WorldManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        
         Application.runInBackground = true;
         AddHumanButton.onClick.AddListener(AddHuman);
         ResetFieldButton.onClick.AddListener(ResetField);
@@ -44,13 +45,13 @@ public class WorldManager : MonoBehaviour {
         DisplayHumanPathfindToggle.onValueChanged.AddListener(TogglePathfinding);
         thinkingTextHolder = GameObject.Find("Thinking");
         DisplayHumanFovToggle.isOn = false;
-        
-        //StartCoroutine(SpawnHuman());
+
+
+        StartCoroutine("SpawnHuman");
     }
 
     void Update() {
         UpdateGUI();
-
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) {
             RaycastHit hitInfo = new RaycastHit();
             bool hit = Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo);
@@ -102,7 +103,8 @@ public class WorldManager : MonoBehaviour {
 
     IEnumerator SpawnHuman() {
         while (true) {
-            if (HumanCount < 15) { 
+            if (HumanCount < 15) {
+                Debug.Log("adding human");
                 AddHuman();
             }
             yield return new WaitForSeconds(5.0f);
@@ -124,7 +126,7 @@ public class WorldManager : MonoBehaviour {
         //}
 
         //Human spawnedHuman = Instantiate(human, spawners[index].transform.position, Quaternion.identity) as Human;
-        Human spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as Human;
+        NewHuman spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as NewHuman;
     }
 
     void ResetField() {
@@ -141,11 +143,13 @@ public class WorldManager : MonoBehaviour {
     }
 
     void ToggleFov(bool value) {
-        if (value) {
-            selectedHuman.fieldOfView.DisplayFieldOfView = true;
-        }
-        else {
-            selectedHuman.fieldOfView.DisplayFieldOfView = false;
+        if (selectedHuman != null) {
+            if (value) {
+                selectedHuman.fieldOfView.DisplayFieldOfView = true;
+            }
+            else {
+                selectedHuman.fieldOfView.DisplayFieldOfView = false;
+            }
         }
     }
 

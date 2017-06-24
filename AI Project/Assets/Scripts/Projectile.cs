@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
-    public Human Owner;
+    public NewHuman Owner;
 
     void Awake() {
         Destroy(gameObject, 3.0f);
@@ -12,8 +12,8 @@ public class Projectile : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "Human") {
-            Human human = collision.gameObject.GetComponentInParent<Human>();
-            human.Health -= 10;
+            NewHuman human = collision.gameObject.GetComponentInParent<NewHuman>();
+            human.Stats.Health -= 10;
             human.LastHitBy = Owner;
             Destroy(gameObject);
             Debug.Log("hitting a human");

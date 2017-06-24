@@ -20,10 +20,11 @@ public class Think : ActionGroup {
 		if (ActionListCount() == 0) {
             AddAction(new WanderAction(entity));           
         }
-        Debug.Log(CurrentAction());
         Action action = entity.thinkBehaviour.Process();
         if (action != null) {
-            CurrentAction().Status = ActionEnum.STATUS_INACTIVE;
+            if (ActionListCount() != 0) {
+                CurrentAction().Status = ActionEnum.STATUS_INACTIVE;
+            }
             AddAction(action);
         }
 

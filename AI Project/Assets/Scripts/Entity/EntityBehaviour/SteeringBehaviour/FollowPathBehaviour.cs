@@ -13,7 +13,7 @@ public class FollowpathBehaviour : SteeringBehaviour {
     #region SteeringBehaviour Implementation Init() / Process()
 
     public override void Init() {
-        RequestPathToTarget(entity.TargetPosition);
+        RequestPathToTarget((entity.Target == null) ? entity.TargetPosition : entity.Target.position);
     }
 
     public override ActionEnum Process() {

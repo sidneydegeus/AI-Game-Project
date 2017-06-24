@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseEntity : MonoBehaviour {
+public abstract class BaseEntity : MonoBehaviour {
 
     // Think and entity related behaviours... defined in concrete entity at Start method!
     internal IThinkBehaviour thinkBehaviour;
@@ -45,7 +45,14 @@ public class BaseEntity : MonoBehaviour {
     public List<string> ActionDescriptionList;
 
     internal NewHuman LastHitBy;
-    float removeLastHitBy = 10.0f;
+    protected float removeLastHitBy = 10.0f;
+
+    internal Vector3 TargetPosition;
+    internal Transform Target;
+
+    public float MaxAttackCooldown = 1.0f;
+    public float MinAttackCooldown = 0.75f;
+    internal float CurrentAttackCooldown = 0.0f;
 
     protected virtual void Start() {
         Think = new Think(this);
@@ -59,4 +66,6 @@ public class BaseEntity : MonoBehaviour {
     protected virtual void Update() {
         Think.Process();
     }
+
+    public abstract void Attack();
 }

@@ -68,4 +68,8 @@ public abstract class Action {
     public int ActionListCount() {
         return actionLinkedList.Count;
     }
+
+    public void ClearActionList() {
+        actionLinkedList = new LinkedList<Action>();
+    }
 }
