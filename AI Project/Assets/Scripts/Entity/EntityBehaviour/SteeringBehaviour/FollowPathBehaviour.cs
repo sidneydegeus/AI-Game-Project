@@ -18,6 +18,9 @@ public class FollowpathBehaviour : SteeringBehaviour {
 
     public override ActionEnum Process() {
         //lineOnScreen();
+        if (entity.path == null) {
+            return ActionEnum.STATUS_FAILED;
+        }
 
         bool followingPath = true;
         int pathIndex = 0;
@@ -58,7 +61,7 @@ public class FollowpathBehaviour : SteeringBehaviour {
     }
     void RequestPathToTarget(Vector3 target) {
         PathRequestManager.RequestPath(new PathRequest(entity.transform.position, target, OnPathFound));
-        Debug.Log("Target: " + target);
+        //Debug.Log("Target: " + target);
         lineOnScreen(target);
     }
 

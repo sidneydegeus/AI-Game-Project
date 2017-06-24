@@ -61,26 +61,16 @@ public class HumanThinkBehaviour : IThinkBehaviour {
         Debug.Log("Fuzzy Logic Desirability: " + FuzzyGetDesirability(human.Stats.Hunger, human.Stats.Money));
 
         //if (human.Stats.Hunger > 5 && human.Stats.Money < 50) {
+        if (human.Stats.Hunger > 15 && human.Think.CurrentAction().GetType() != typeof(GoingToEat) && human.Stats.Money >= 50) {
+            return new GoingToEat(human);
+        }
         if (FuzzyGetDesirability(human.Stats.Hunger, human.Stats.Money) > 85) {
             if (human.Think.CurrentAction().GetType() != typeof(SeekTarget)) {
-                //FollowpathAction followpathAction = new FollowpathAction(parasite);
                 SeekTarget seekTarget = new SeekTarget(human);
                 return seekTarget;
             }
         }
-        //if (parasite.target != null) {
-        //        if (parasite.think.CurrentAction().GetType() != typeof(ChaseTarget)) {
-        //            //FollowpathAction followpathAction = new FollowpathAction(parasite);
-        //            ChaseTarget chaseTarget = new ChaseTarget(parasite);
-        //            return chaseTarget;
-        //        }
-        //}
-        //else {
-        //    if (parasite.think.CurrentAction().GetType() == typeof(ChaseTarget)) {
-        //        parasite.think.RemoveAction();
-        //        parasite.animator.SetBool("Moving", false);
-        //    }
-        //}
+
         return null;
     }
 }

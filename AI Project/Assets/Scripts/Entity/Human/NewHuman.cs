@@ -6,7 +6,7 @@ using UnityEngine;
 public class NewHuman : MovingEntity {
 
     public GameObject projectilePrefab;
-
+    public double MoneyPerHealth = 5;
 
     protected override void Start () {
         base.Start();
@@ -74,5 +74,14 @@ public class NewHuman : MovingEntity {
     void HumanStatsTick() {
         Stats.Money += 2;
         Stats.Hunger += 1;
+        if (Stats.Hunger >= 100) {
+            Stats.Health -= 1;
+        }
+        else if (Stats.Hunger <= 50) {
+            Stats.Health += 1;
+            if (Stats.Health > 100) {
+                Stats.Health = 100;
+            }
+        }
     }
 }

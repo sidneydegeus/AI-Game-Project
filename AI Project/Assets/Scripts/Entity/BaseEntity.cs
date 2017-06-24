@@ -44,6 +44,8 @@ public abstract class BaseEntity : MonoBehaviour {
     [HideInInspector]
     public List<string> ActionDescriptionList;
 
+    internal List<Item> Inventory;
+
     internal NewHuman LastHitBy;
     protected float removeLastHitBy = 10.0f;
 
@@ -60,6 +62,7 @@ public abstract class BaseEntity : MonoBehaviour {
         animator = GetComponent<Animator>();
         fieldOfView = GetComponentInChildren<FieldOfView>();
         Stats = new EntityStats();
+        Inventory = new List<Item>();
         ActionDescriptionList = new List<string>();
     }
 
