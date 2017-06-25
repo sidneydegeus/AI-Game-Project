@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="PathRequestManager">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAAAAAAAAAAAACAAAAAABAIAgAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\PathRequestManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Pathfinding">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAIAAAAAAAAAAAAAAAAEAIAAAAAAAAAQAEA=</HashCode>
+      <FileName>Assets\Scripts\Pathfinding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Path">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAJAAAAAAAAAAAAAAAAAAAAAwAAIAAAAAgAA=</HashCode>
+      <FileName>Assets\Scripts\Path.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Node" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACEAAAACARAAAAAAAAIAAAACJIAAAAAAAAIAAE=</HashCode>
+      <FileName>Assets\Scripts\Node.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Heap&lt;T&gt;">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAQAAAACAAAAQAAAgAAAQAAAARCAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Assets\Scripts\Heap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grid">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Grid.TerrainType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Grid.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BAAEAABACAIBAAAAAAAAAgAAAAIAAAACQgAAGQgQIkA=</HashCode>
+      <FileName>Assets\Scripts\Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MovingEntity">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUEAAAAACAAgAAAAAISACAJAgAQAAIAQAwAAAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Entity\MovingEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseEntity">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BRQAAAAAACAAAABAAAAABCAAAIAAgAAYAAAAIgCgAAI=</HashCode>
+      <FileName>Assets\Scripts\Entity\BaseEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="PathResult">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PathRequestManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PathRequest">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAACAAABAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PathRequestManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Line">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABggAAAAAACEQAAAAAAACAAAAAIAAAIAAAAEAAA=</HashCode>
+      <FileName>Assets\Scripts\Line.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="IHeapItem&lt;T&gt;">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Heap.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

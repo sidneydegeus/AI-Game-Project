@@ -13,31 +13,8 @@ public abstract class BaseEntity : MonoBehaviour {
     // Field of view of the entity
     internal FieldOfView fieldOfView;
 
-    //public float viewRadius;
-    //[Range(0, 360)]
-    //public float viewAngle;
-
-    //public LayerMask targetMask;
-    //public LayerMask obstacleMask;
-
-    //[HideInInspector]
-    //public Transform LockedTarget;
-
-    //public float meshResolution;
-    //public int edgeResolveIterations;
-    //public float edgeDstThreshold;
-
-    //public MeshFilter viewMeshFilter;
-    //Mesh viewMesh;
-
     [HideInInspector]
     public bool Selected;
-
-    ////[HideInInspector]
-    //public List<Transform> visibleTargets = new List<Transform>();
-
-    //[HideInInspector]
-    //public bool DisplayFovToggle;
 
     internal EntityStats Stats;
 

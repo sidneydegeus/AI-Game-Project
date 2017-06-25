@@ -11,7 +11,6 @@ public class Pathfinding : MonoBehaviour {
         grid = GetComponent<Grid>();
     }
 
-
     public void FindPath(PathRequest request, Action<PathResult> callback) {
         Vector3[] waypoints = new Vector3[0];
         bool pathSuccess = false;

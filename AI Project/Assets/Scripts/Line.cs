@@ -4,7 +4,6 @@ using UnityEngine;
 
 public struct Line
 {
-
     const float verticalLineGradient = 1e5f;
 
     float gradient;
@@ -22,22 +21,13 @@ public struct Line
         float dy = pointOnLine.y - pointPerpendicularToLine.y;
 
         if (dx == 0)
-        {
             gradientPerpendicular = verticalLineGradient;
-        }
         else
-        {
             gradientPerpendicular = dy / dx;
-        }
-
         if (gradientPerpendicular == 0)
-        {
             gradient = verticalLineGradient;
-        }
         else
-        {
             gradient = -1 / gradientPerpendicular;
-        }
 
         y_intercept = pointOnLine.y - gradient * pointOnLine.x;
         pointOnLine_1 = pointOnLine;

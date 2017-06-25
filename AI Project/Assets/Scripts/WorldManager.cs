@@ -10,9 +10,6 @@ public class WorldManager : MonoBehaviour {
     public NewHuman prefabMan;
 
     public Text HumanCountText;
-    //public Text GoodHumanCountText;
-    //public Text BadHumanCountText;
-
     public Text HumanSelectedText;
     public Text HumanBehaviourText;
     public Text HumanHealthText;
@@ -26,7 +23,6 @@ public class WorldManager : MonoBehaviour {
     public Button AddHumanButton;
     public Button ResetFieldButton;
 
-    //public static int HumanCount = 0;
     public static int HumanCount;
 
     NewHuman selectedHuman;
@@ -44,7 +40,6 @@ public class WorldManager : MonoBehaviour {
         DisplayHumanPathfindToggle.onValueChanged.AddListener(TogglePathfinding);
         thinkingTextHolder = GameObject.Find("Thinking");
         DisplayHumanFovToggle.isOn = false;
-
 
         StartCoroutine("SpawnHuman");
     }
@@ -113,18 +108,6 @@ public class WorldManager : MonoBehaviour {
     void AddHuman() {
         System.Random r = new System.Random();
         int index = r.Next(0, 4);
-
-        //float x = r.Next(1, 3);
-        //if (x == 1)
-        //{
-        //    Human spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as Human;
-        //}
-        //else
-        //{
-        //    Human spawnedHuman = Instantiate(prefabWoman, spawners[index].transform.position, Quaternion.identity) as Human;
-        //}
-
-        //Human spawnedHuman = Instantiate(human, spawners[index].transform.position, Quaternion.identity) as Human;
         NewHuman spawnedHuman = Instantiate(prefabMan, spawners[index].transform.position, Quaternion.identity) as NewHuman;
     }
 
@@ -163,12 +146,9 @@ public class WorldManager : MonoBehaviour {
 
     void UpdateGUI() {
         HumanCountText.text = HumanCount.ToString();
-        //GoodHumanCountText.text = GoodHumanCount.ToString();
-        //BadHumanCountText.text = BadHumanCount.ToString();
 
         if (selectedHuman != null) {
             HumanSelectedText.text = "Yes";
-            //HumanBehaviourText.text = selectedHuman.HumanBehaviour.Description;
             HumanHealthText.text = selectedHuman.Stats.Health.ToString();
             HumanHungerText.text = selectedHuman.Stats.Hunger.ToString();
             HumanMoneyText.text = selectedHuman.Stats.Money.ToString();

@@ -165,7 +165,6 @@ public class Grid : MonoBehaviour {
         return grid[x, y]; 
     }
 
-
     private void OnDrawGizmos() {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
             if (grid != null && displayGridGizmos) {

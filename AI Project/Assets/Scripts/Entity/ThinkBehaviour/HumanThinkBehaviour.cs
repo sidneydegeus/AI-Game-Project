@@ -121,8 +121,8 @@ public class HumanThinkBehaviour : IThinkBehaviour {
             return human.Think.CurrentAction().GetType() != typeof(Defending) ? new Defending(human) : null;
         }
 
-        Debug.Log("Fuzzy Logic Desirability Seek: " + FuzzyGetDesirabilitySeek(human.Stats.Hunger, human.Stats.Money));
-        Debug.Log("Fuzzy Logic Desirability Eat: " + FuzzyGetDesirabilityEat(human.Stats.Hunger, human.Stats.Money, human.Stats.Health));
+      //  Debug.Log("Fuzzy Logic Desirability Seek: " + FuzzyGetDesirabilitySeek(human.Stats.Hunger, human.Stats.Money));
+       // Debug.Log("Fuzzy Logic Desirability Eat: " + FuzzyGetDesirabilityEat(human.Stats.Hunger, human.Stats.Money, human.Stats.Health));
 
         //if (human.Stats.Hunger > 5 && human.Stats.Money < 50) {
         //if (human.Stats.Hunger > 15 && human.Think.CurrentAction().GetType() != typeof(GoingToEat) && human.Stats.Money >= 50) {
