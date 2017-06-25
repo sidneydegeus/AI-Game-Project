@@ -15,22 +15,16 @@ public class Think : ActionGroup {
 
     override
     protected void AdditionalProcess() {
-
         // whenever there is nothing else to do, go wander
-		if (ActionListCount() == 0) {
+		if (ActionListCount() == 0)
             AddAction(new WanderAction(entity));           
-        }
         Action action = entity.thinkBehaviour.Process();
         if (action != null)
         {
             if (ActionListCount() != 0)
-            {
                 CurrentAction().Status = ActionEnum.STATUS_INACTIVE;
-            }
             AddAction(action);
         }
     }
-
-
 }
 

@@ -113,23 +113,16 @@ public class HumanThinkBehaviour : IThinkBehaviour {
 
     public Action Process() {
         if (human.LastHitBy != null && human.Target != human.LastHitBy) {
-            if (human.Think.CurrentAction().GetType() == typeof(Defending) || human.Think.CurrentAction().GetType() == typeof(SeekTarget)) {
+            if (human.Think.CurrentAction().GetType() == typeof(Defending) || human.Think.CurrentAction().GetType() == typeof(SeekTarget))
                 human.Think.RemoveAction();
-            }
 
             human.Target = human.LastHitBy.transform;
             return human.Think.CurrentAction().GetType() != typeof(Defending) ? new Defending(human) : null;
         }
 
-      //  Debug.Log("Fuzzy Logic Desirability Seek: " + FuzzyGetDesirabilitySeek(human.Stats.Hunger, human.Stats.Money));
-       // Debug.Log("Fuzzy Logic Desirability Eat: " + FuzzyGetDesirabilityEat(human.Stats.Hunger, human.Stats.Money, human.Stats.Health));
-
-        //if (human.Stats.Hunger > 5 && human.Stats.Money < 50) {
-        //if (human.Stats.Hunger > 15 && human.Think.CurrentAction().GetType() != typeof(GoingToEat) && human.Stats.Money >= 50) {
         if (FuzzyGetDesirabilityEat(human.Stats.Hunger, human.Stats.Money, human.Stats.Health) > 85 && human.Think.CurrentAction().GetType() != typeof(GoingToEat))
-        {
             return new GoingToEat(human);
-        }
+
         if (FuzzyGetDesirabilitySeek(human.Stats.Hunger, human.Stats.Money) > 85) {
             if (human.Think.CurrentAction().GetType() != typeof(SeekTarget)) {
                 SeekTarget seekTarget = new SeekTarget(human);

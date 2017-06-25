@@ -64,6 +64,21 @@
       <FileName>Assets\Scripts\Entity\BaseEntity.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="SteeringBehaviour" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAgAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Entity\EntityBehaviour\SteeringBehaviour\SteeringBehaviour.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="WanderBehaviour" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAiAABAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Entity\EntityBehaviour\SteeringBehaviour\WanderBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="PathResult">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
